@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SER-IA — Área do Aluno</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --tiffany:#00D0CA;--tiffany-dark:#00A09B;--tiffany-light:#E0FAFA;--tiffany-mid:#B2EFED;
+  --orange:#E8643A;--orange-bg:#FDF0EB;--gray:#F4F9F9;--text:#1C2B2A;--muted:#6B8685;
+}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#E2F0F0;min-height:100vh;color:var(--text)}
+#app{display:flex;flex-direction:column;min-height:100vh;max-width:880px;margin:0 auto;background:#fff;box-shadow:0 0 60px rgba(0,208,202,.15)}
+.topbar{background:linear-gradient(135deg,#005F5A 0%,var(--tiffany) 100%);color:#fff;padding:20px 24px;display:flex;align-items:center;justify-content:space-between}
+.topbar-left{display:flex;align-items:center;gap:14px}
+.logo-circle{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:#fff;flex-shrink:0;letter-spacing:1px}
+.topbar-brand h1{font-size:22px;font-weight:900;letter-spacing:2px;line-height:1}
+.topbar-brand span{font-size:11px;opacity:.75;letter-spacing:1.5px;font-weight:500}
+.topbar-right{text-align:right}
+.topbar-right .vds{font-size:13px;font-weight:700;letter-spacing:1px;opacity:.9}
+.topbar-right .vds-sub{font-size:10px;opacity:.6;letter-spacing:.5px}
+.nav{background:#fff;border-bottom:2px solid var(--tiffany-light);display:flex;overflow-x:auto;padding:0 6px;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{padding:13px 14px;font-size:12px;font-weight:700;color:var(--muted);background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;letter-spacing:.4px;margin-bottom:-2px}
+.nav-btn.active{color:var(--tiffany);border-bottom-color:var(--tiffany)}
+.nav-btn:hover:not(.active){color:var(--tiffany-dark);background:var(--tiffany-light)}
+.content{flex:1;padding:22px 18px;background:#E2F0F0}
+.section{display:none}.section.active{display:block}
+.card{background:#fff;border-radius:16px;border:1px solid #CCE8E7;padding:22px;margin-bottom:14px;box-shadow:0 2px 14px rgba(0,208,202,.07)}
+.card-title{font-size:14.5px;font-weight:700;color:var(--tiffany-dark);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-header{margin-bottom:18px}
+.section-header h2{font-size:21px;font-weight:800;color:var(--tiffany-dark)}
+.section-header p{font-size:13px;color:var(--muted);margin-top:4px}
+.pill{display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:10px;letter-spacing:.3px}
+.pill-teal{background:var(--tiffany-light);color:var(--tiffany-dark)}
+.pill-orange{background:var(--orange-bg);color:var(--orange)}
+.badge{background:var(--tiffany-light);color:var(--tiffany-dark);font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px}
+p{font-size:13.5px;line-height:1.75;color:#3A4E4D;margin-bottom:8px}
+ul,ol{padding-left:20px;margin-bottom:8px}
+li{font-size:13.5px;line-height:1.85;color:#3A4E4D}
+h3{font-size:12.5px;font-weight:800;color:var(--tiffany-dark);margin:16px 0 6px;text-transform:uppercase;letter-spacing:.8px}
+.divider{height:1px;background:var(--tiffany-light);margin:16px 0}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:10px}
+.contact-item{background:var(--tiffany-light);border:1px solid var(--tiffany-mid);border-radius:12px;padding:12px 14px;font-size:13px;color:#2A3E3D;word-break:break-word}
+.contact-item strong{display:block;color:var(--tiffany-dark);font-size:10.5px;font-weight:800;margin-bottom:5px;letter-spacing:.5px;text-transform:uppercase}
+.contact-item .contact-name{font-size:13.5px;font-weight:700;color:var(--text);margin-bottom:3px}
+.contact-item .contact-info{font-size:12.5px;color:#3A4E4D;line-height:1.7}
+.lock-screen{background:#fff;border-radius:16px;border:2px dashed var(--tiffany-mid);padding:40px 24px;text-align:center;margin-bottom:14px}
+.lock-icon{font-size:40px;margin-bottom:14px}
+.lock-screen h3{font-size:17px;font-weight:700;color:var(--text);margin-bottom:6px;text-transform:none;letter-spacing:0}
+.lock-screen p{font-size:13px;color:var(--muted);margin-bottom:20px}
+.pw-row{display:flex;gap:8px;max-width:320px;margin:0 auto}
+.pw-row input{flex:1;padding:11px 14px;border:2px solid #CCE8E7;border-radius:10px;font-size:13px;outline:none;transition:border .2s}
+.pw-row input:focus{border-color:var(--tiffany)}
+.pw-row button{padding:11px 18px;background:var(--tiffany);color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;transition:background .2s;white-space:nowrap}
+.pw-row button:hover{background:var(--tiffany-dark)}
+.pw-error{color:#E05A3A;font-size:12px;margin-top:8px;min-height:18px;font-weight:500}
+.locked-content{display:none}.unlocked{display:block!important}
+.crono-block{background:var(--gray);border-left:4px solid var(--tiffany);border-radius:0 10px 10px 0;padding:11px 15px;margin-bottom:8px;transition:background .15s}
+.crono-block:hover{background:var(--tiffany-light)}
+.crono-date{font-size:11.5px;color:var(--tiffany-dark);font-weight:700;margin-bottom:3px;letter-spacing:.3px}
+.crono-aula{font-size:13.5px;color:#2A3E3D;font-weight:500}
+.crono-tag{display:inline-block;font-size:10.5px;padding:2px 8px;border-radius:8px;margin-left:6px;vertical-align:middle;font-weight:600}
+.tag-mad{background:var(--tiffany-light);color:var(--tiffany-dark)}
+.tag-jp{background:var(--orange-bg);color:var(--orange)}
+.tag-ferias{background:#F0F0F0;color:#777}.tag-esp{background:#FEF9E7;color:#B8860B}
+.cal-block{background:#fff;border-radius:14px;border:1px solid #CCE8E7;padding:14px 18px;margin-bottom:10px;display:flex;align-items:center;gap:16px;box-shadow:0 2px 10px rgba(0,208,202,.07);transition:transform .15s,box-shadow .15s}
+.cal-block:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,208,202,.13)}
+.cal-date-box{background:var(--tiffany);color:#fff;border-radius:12px;padding:10px 14px;text-align:center;min-width:64px;flex-shrink:0}
+.cal-date-box .cal-day{font-size:22px;font-weight:900;line-height:1}
+.cal-date-box .cal-month{font-size:10px;font-weight:700;letter-spacing:.8px;margin-top:3px;opacity:.9}
+.cal-info{flex:1;min-width:0}
+.cal-event{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.cal-type{display:inline-block;font-size:11px;padding:3px 10px;border-radius:8px;font-weight:700;letter-spacing:.3px}
+.cal-ws{background:var(--tiffany-light);color:var(--tiffany-dark)}.cal-ferias{background:#FEF9E7;color:#B8860B}
+.cal-show{background:#EDE7F6;color:#5E35B1}.cal-enc{background:var(--orange-bg);color:var(--orange)}
+.cal-aula{background:#E8F5E9;color:#2E7D32}.cal-turma{background:#E3F2FD;color:#1565C0}
+.fase-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.fase-tab{padding:8px 18px;border-radius:24px;font-size:12px;font-weight:700;border:2px solid #CCE8E7;background:#fff;cursor:pointer;color:var(--muted);transition:all .15s;letter-spacing:.3px}
+.fase-tab.on{background:var(--tiffany);color:#fff;border-color:var(--tiffany)}
+.crono-section{display:none}.crono-section.on{display:block}
+.pdf-card{background:linear-gradient(135deg,#005F5A,var(--tiffany));border-radius:16px;padding:18px 22px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;box-shadow:0 6px 20px rgba(0,208,202,.3)}
+.pdf-card-text h4{color:#fff;font-size:15px;font-weight:700;margin-bottom:3px}
+.pdf-card-text p{color:rgba(255,255,255,.75);font-size:12.5px;margin:0}
+.pdf-btn{background:#fff;color:var(--tiffany-dark);padding:11px 22px;border-radius:10px;text-decoration:none;font-size:13px;font-weight:800;white-space:nowrap;transition:all .2s;display:inline-block;letter-spacing:.3px}
+.pdf-btn:hover{background:var(--tiffany-light);transform:translateY(-1px)}
+.fase-card{background:var(--gray);border-radius:12px;padding:14px 16px;margin-bottom:8px;border-left:4px solid var(--tiffany);display:flex;gap:12px;align-items:flex-start}
+.fase-num{background:var(--tiffany);color:#fff;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:800;flex-shrink:0}
+.fase-info strong{font-size:13.5px;color:var(--text);display:block;margin-bottom:2px}
+.fase-info span{font-size:12.5px;color:var(--muted)}
+.welcome-card{border-radius:16px;padding:22px;margin-bottom:14px}
+.welcome-card.green{background:linear-gradient(135deg,#004D49,#00857E)}
+.welcome-card.gold{background:linear-gradient(135deg,#7A4400,#D4820A)}
+.welcome-card.navy{background:linear-gradient(135deg,#0A1628,#1A3A6B)}
+.welcome-card.plum{background:linear-gradient(135deg,#0A1628,#1A3A6B)}
+.welcome-card h3{color:#fff;font-size:17px;font-weight:800;margin-bottom:10px;text-transform:none;letter-spacing:.2px}
+.welcome-card p{color:rgba(255,255,255,.88);font-size:13.5px;line-height:1.75;margin-bottom:6px}
+.welcome-emoji{font-size:32px;margin-bottom:10px;display:block}
+.action-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.action-btn{flex:1;min-width:140px;padding:13px 16px;border-radius:12px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:all .2s;letter-spacing:.2px}
+.action-btn.primary{background:var(--tiffany);color:#fff;box-shadow:0 4px 14px rgba(0,208,202,.3)}
+.action-btn.primary:hover{background:var(--tiffany-dark);transform:translateY(-1px)}
+.action-btn.secondary{background:#fff;color:var(--tiffany-dark);border:2px solid var(--tiffany);box-shadow:0 2px 8px rgba(0,208,202,.1)}
+.action-btn.secondary:hover{background:var(--tiffany-light);transform:translateY(-1px)}
+.action-btn.coming{background:#f0f0f0;color:#aaa;border:2px solid #e0e0e0;cursor:default}
+.action-btn .btn-icon{font-size:22px}
+.summary-block{background:var(--tiffany-light);border-radius:12px;padding:16px 18px;margin-bottom:14px;border-left:4px solid var(--tiffany)}
+.summary-block h4{font-size:13px;font-weight:800;color:var(--tiffany-dark);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.summary-block p{font-size:13px;color:#2A3E3D;margin-bottom:4px}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="logo-circle">VS</div>
+      <div class="topbar-brand"><h1>SER-IA</h1><span>ÁREA DO ALUNO</span></div>
+    </div>
+    <div class="topbar-right">
+      <div class="vds">VOZ DO SER</div>
+      <div class="vds-sub">A VOZ DE QUEM REALMENTE SOMOS</div>
+    </div>
+  </div>
+  <div class="nav">
+    <button class="nav-btn active" onclick="showTab('manual')">🏠 Home</button>
+    <button class="nav-btn" onclick="showTab('cal')">🗓 Calendário</button>
+    <button class="nav-btn" onclick="showTab('fase1')">🌱 Fase 1</button>
+    <button class="nav-btn" onclick="showTab('fase2')">🌿 Fase 2</button>
+    <button class="nav-btn" onclick="showTab('fase3')">⭐ Fase 3</button>
+    <button class="nav-btn" onclick="showTab('fase4')">💫 Fase 4</button>
+    <button class="nav-btn" onclick="showTab('fase5')">🎓 Fase 5</button>
+    <button class="nav-btn" onclick="showTab('tf')">💎 Terapeuta Formado</button>
+  </div>
+  <div class="content">
+
+    <!-- HOME / MANUAL -->
+    <div id="manual" class="section active">
+      <div class="section-header"><h2>Home</h2><p>Formação Comunicação com Propósito — Voz do Ser</p></div>
+      <div class="pdf-card">
+        <div class="pdf-card-text"><h4>📄 Manual do Aluno — PDF Completo</h4><p>Acesse o documento oficial no Google Drive</p></div>
+        <a href="https://drive.google.com/drive/folders/18ZKSoefSgV69g4_293j2p3GFm_OIGYT0?usp=sharing" target="_blank" rel="noopener noreferrer" class="pdf-btn">Abrir PDF ↗</a>
+      </div>
+      <div class="pdf-card" style="background:linear-gradient(135deg,#0A1628,#1A3A6B)">
+        <div class="pdf-card-text"><h4>🎓 TCCs dos Terapeutas Formados</h4><p>Acesse a coleção de trabalhos finais no Google Drive</p></div>
+        <a href="https://drive.google.com/drive/folders/1YpxFwzLTNzD7YI6rCQlsujL3Qk9oap5E" target="_blank" rel="noopener noreferrer" class="pdf-btn">Abrir ↗</a>
+      </div>
+      <div class="card">
+        <div class="card-title">🎯 O que é a Formação?</div>
+        <p>A metodologia Comunicação com Propósito tem o objetivo de transferir uma maneira efetiva de se comunicar e se relacionar, capacitando pessoas a serem a demonstração prática daquilo que aprenderam e vão ensinar.</p>
+        <p>A formação é um processo de treinamento sistematizado, no qual vamos treinar juntos a eliminação de todas as barreiras que nos impedem de ser felizes e de exercer o nosso verdadeiro propósito.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">📚 Dinâmica do Curso</div>
+        <h3>Uma aula semanal — das 19h às 22h30</h3>
+        <p>Aulas ministradas pelo time de professores do Voz do Ser. A cada fase que você avança, pode reassistir às aulas das fases anteriores.</p>
+        <h3>Formato híbrido</h3>
+        <p>Alunos de São Paulo assistem presencialmente. De outras regiões, via Zoom ao vivo com câmera aberta.</p>
+        <h3>Encontros individuais</h3>
+        <p>Ao entrar na formação, você recebe uma dupla de padrinhos. Vocês se encontram ao final de cada bloco de aulas. Esses encontros fazem parte da grade curricular e têm foco no entendimento do conteúdo, no acolhimento das sensações e na prática, tanto para você quanto para os padrinhos do curso usufruírem desse estágio.</p>
+        <h3>Material didático</h3>
+        <p>Conteúdo exclusivo, exercícios semanais, slides, vídeos e filmes. Usamos o livro "Um Curso em Milagres" (UCEM) como base para a metodologia.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">🗺️ Fases do Curso</div>
+        <div class="fase-card"><span class="fase-num">F1</span><div class="fase-info"><strong>Comunicação e Relacionamentos Efetivos</strong><span>Aprendizado prático do treinamento mental. Duração: 1 semestre.</span></div></div>
+        <div class="fase-card"><span class="fase-num">F2</span><div class="fase-info"><strong>Visão e Mentalidade Curada</strong><span>Reversão das crenças limitantes. Duração: 1 semestre.</span></div></div>
+        <div class="fase-card" style="border-left-color:var(--orange)"><span class="fase-num" style="background:var(--orange)">F3</span><div class="fase-info"><strong>Consolidação do Aprendizado</strong><span>Mentalidade humana e arquétipos. O aluno se torna Padrinho. Duração: 12 a 15 meses.</span></div></div>
+        <div class="fase-card" style="border-left-color:var(--orange)"><span class="fase-num" style="background:var(--orange)">F4</span><div class="fase-info"><strong>Cuidado Integral (Paredão)</strong><span>Técnicas avançadas de terapia. O aluno se torna Juiz de Paz. Duração: 2 semestres.</span></div></div>
+        <div class="fase-card" style="border-left-color:var(--orange)"><span class="fase-num" style="background:var(--orange)">F5</span><div class="fase-info"><strong>Terapeuta da Comunicação</strong><span>Estágio com atendimentos externos. Defesa do TCC. Duração: 1 semestre.</span></div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">✅ Critérios Avaliativos Gerais</div>
+        <ul>
+          <li>Presença mínima de 70% (presencial ou online com câmera aberta)</li>
+          <li>Máximo de 2 faltas consecutivas permitidas</li>
+          <li>Cumprir rigorosamente as funções de estágio (madrinhagens e JPzagens)</li>
+          <li>Aprovação ética por avaliação cruzada (JP, terapeuta e diretoria)</li>
+        </ul>
+        <div class="divider"></div>
+        <h3>Por fase</h3>
+        <p><strong>Fase 3:</strong> Conclusão total dos 365 exercícios do UCEM.</p>
+        <p><strong>Fase 4:</strong> Terapias pessoais a cada 15 dias + Entrega formal do TCC.</p>
+        <p><strong>Fase 5:</strong> Terapias pessoais mensais + Defesa do TCC + Mínimo de 12 atendimentos de voucher.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">🤝 Padrinhos</div>
+        <p>São alunos da fase 3 que utilizam o que já aprenderam para ajudar os alunos mais novos.</p>
+        <ul>
+          <li>Os padrinhos criam um grupo no WhatsApp para comunicação</li>
+          <li>As madrinhagens são agendadas conforme disponibilidade</li>
+          <li>A cada três semanas você deve realizar uma madrinhagem</li>
+          <li>Conversas e emergências não excluem a necessidade da madrinhagem</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">⚖️ Juiz de Paz (JP)</div>
+        <p>Apelido carinhoso aos alunos da fase 4, que cuidam dos padrinhos do curso.</p>
+        <ul>
+          <li>Mediador de relacionamento de padrinhos com afilhados</li>
+          <li>Guardião do UCEM para o afilhado da fase 3</li>
+          <li>Encontros quinzenais com seu afilhado da fase 3</li>
+          <li>Conversas e emergências não excluem o encontro formal</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">🌟 Quase Terapeuta (QT)</div>
+        <p>Apelido carinhoso aos alunos da fase 5, que cuidam dos alunos do paredão.</p>
+        <ul>
+          <li>Mediador de relacionamento entre JP e seu afilhado padrinho</li>
+          <li>Norteador de entendimentos sobre Terapia da Comunicação estudada pelo aluno da fase 4</li>
+          <li>Encontros quinzenais com seu afilhado da fase 4</li>
+          <li>Conversas e emergências não excluem o encontro formal</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">🎓 Terapeuta Formado</div>
+        <ul>
+          <li>Terapeuta do aluno de fase 5</li>
+          <li>Norteador profissional na reta final de formação</li>
+          <li>Encontros mensais (1x por mês) entregando Terapia da Comunicação completa ao formando</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">📋 O que eu preciso saber?</div>
+        <ul>
+          <li>Cada aula tem 3h30 — presença integral é essencial. Reposição só na próxima turma.</li>
+          <li>Ao final de cada aula você recebe material gráfico e exercício para a semana.</li>
+          <li>A cada três semanas agende encontro com seus padrinhos.</li>
+          <li>SP: prefira presencial. Fora de SP: câmera aberta, local tranquilo, fone de ouvido.</li>
+          <li>Frequência mínima 70%. Com 3 faltas seguidas você passa para a próxima turma.</li>
+          <li>Reajuste anual da mensalidade em fevereiro (IGMP ou IPCA).</li>
+          <li>Desistência antes da conclusão da fase: multa de 20% sobre mensalidades restantes.</li>
+          <li>Nunca compartilhe seu material, exercícios ou frases de conteúdo.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">📞 Fale com a Gente</div>
+        <div class="contact-grid">
+          <div class="contact-item">
+            <strong>Diretoria da Formação</strong>
+            <div class="contact-name">Carol</div>
+            <div class="contact-info">(11) 97841-8289</div>
+            <div style="height:8px"></div>
+            <div class="contact-name" style="font-size:13px;font-weight:600;color:var(--tiffany-dark)">Coordenação — Karine</div>
+            <div class="contact-info">(11) 98060-8376</div>
+          </div>
+          <div class="contact-item">
+            <strong>Financeiro</strong>
+            <div class="contact-name">Sabrina</div>
+            <div class="contact-info">(11) 93220-2070<br>financeiro@vozdoser.com.br</div>
+          </div>
+          <div class="contact-item">
+            <strong>Ouvidoria Voz do Ser</strong>
+            <div class="contact-info">(11) 94454-2726<br>ouvidoria@vozdoser.com.br</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CALENDÁRIO -->
+    <div id="cal" class="section">
+      <div class="section-header"><h2>Calendário da Escola</h2><p>Eventos e datas importantes — 2026</p></div>
+      <div class="cal-block">
+        <div class="cal-date-box" style="background:#B8860B"><div class="cal-day">10</div><div class="cal-month">JUL</div></div>
+        <div class="cal-info"><div class="cal-event">Férias Escolares</div><span class="cal-type cal-ferias">10 jul → 27 jul</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box" style="background:#2E7D32"><div class="cal-day">29</div><div class="cal-month">JUL</div></div>
+        <div class="cal-info"><div class="cal-event">Aulão — Todas as Turmas</div><span class="cal-type cal-aula">Todas as turmas</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box"><div class="cal-day">01</div><div class="cal-month">AGO</div></div>
+        <div class="cal-info"><div class="cal-event">Workshop Voz do Ser</div><span class="cal-type cal-ws">1 e 2 de agosto</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box" style="background:#1565C0"><div class="cal-day">12</div><div class="cal-month">AGO</div></div>
+        <div class="cal-info"><div class="cal-event">Chegada da Turma 19</div><span class="cal-type cal-turma">12 de agosto</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box" style="background:#5E35B1"><div class="cal-day">28</div><div class="cal-month">AGO</div></div>
+        <div class="cal-info"><div class="cal-event">Ser em Cena 1</div><span class="cal-type cal-show">28, 29 e 30 de agosto</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box" style="background:var(--orange)"><div class="cal-day">19</div><div class="cal-month">SET</div></div>
+        <div class="cal-info"><div class="cal-event">ETA — Encontro de Terapeutas Atualizados</div><span class="cal-type cal-enc">19 de setembro</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box"><div class="cal-day">26</div><div class="cal-month">SET</div></div>
+        <div class="cal-info"><div class="cal-event">Workshop Voz do Ser</div><span class="cal-type cal-ws">26 e 27 de setembro</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box" style="background:#5E35B1"><div class="cal-day">23</div><div class="cal-month">OUT</div></div>
+        <div class="cal-info"><div class="cal-event">Ser em Cena 2</div><span class="cal-type cal-show">23, 24 e 25 de outubro</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box"><div class="cal-day">28</div><div class="cal-month">NOV</div></div>
+        <div class="cal-info"><div class="cal-event">Workshop Voz do Ser</div><span class="cal-type cal-ws">28 e 29 de novembro</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box" style="background:#B8860B"><div class="cal-day">21</div><div class="cal-month">DEZ</div></div>
+        <div class="cal-info"><div class="cal-event">Férias Escolares</div><span class="cal-type cal-ferias">21 dez → 14 jan</span></div>
+      </div>
+    </div>
+
+    <!-- FASE 1 -->
+    <div id="fase1" class="section">
+      <div class="section-header"><h2>Fase 1 — Cronogramas</h2><p>Comunicação e Relacionamentos Efetivos</p></div>
+      <div class="action-btns">
+        <a href="https://classroom.google.com/c/Nzk4MzY3NjcwMTc0?cjc=n57n635t" target="_blank" rel="noopener noreferrer" class="action-btn primary">
+          <span class="btn-icon">📖</span><span>Acesse sua apostila!</span>
+        </a>
+      </div>
+      <div class="fase-tabs">
+        <button class="fase-tab on" onclick="showCrono('f1t18','f1',this)">Turma 18</button>
+        <button class="fase-tab" onclick="showCrono('f1t19','f1',this)">Turma 19</button>
+      </div>
+      <div id="f1t18" class="crono-section on"><div class="card"><div class="card-title">Turma 18 — Fase 1 <span class="badge">Quinta-feira</span></div><div id="t18c"></div></div></div>
+      <div id="f1t19" class="crono-section"><div class="card"><div class="card-title">Turma 19 — Fase 1 <span class="badge">Quarta-feira</span></div><div id="t19c"></div></div></div>
+    </div>
+
+    <!-- FASE 2 -->
+    <div id="fase2" class="section">
+      <div class="section-header"><h2>Fase 2 — Visão e Mentalidade Curada</h2><p>Área exclusiva para alunos da Fase 2</p></div>
+      <div class="lock-screen" id="lock2">
+        <div class="lock-icon">🔐</div>
+        <h3>Área restrita — Fase 2</h3>
+        <p>Digite a senha para acessar os conteúdos da Fase 2.</p>
+        <div class="pw-row"><input type="password" id="pw2" placeholder="Senha" onkeydown="if(event.key==='Enter')check(2)"/><button onclick="check(2)">Entrar</button></div>
+        <div class="pw-error" id="err2"></div>
+      </div>
+      <div class="locked-content" id="content2">
+        <div class="action-btns">
+          <a href="https://classroom.google.com/c/ODcwNjM0NDgxNzIw?cjc=3kupowpd" target="_blank" rel="noopener noreferrer" class="action-btn primary">
+            <span class="btn-icon">📖</span><span>Acesse sua apostila!</span>
+          </a>
+        </div>
+        <div class="fase-tabs">
+          <button class="fase-tab on" onclick="showCrono('f2t17','f2',this)">Turma 17</button>
+          <button class="fase-tab" onclick="showCrono('f2t18','f2',this)">Turma 18</button>
+        </div>
+        <div id="f2t17" class="crono-section on"><div class="card"><div class="card-title">Turma 17 — Fase 2 <span class="badge">Quarta-feira</span></div><div id="t17c"></div></div></div>
+        <div id="f2t18" class="crono-section"><div class="card"><div class="card-title">Turma 18 — Fase 2 <span class="badge">Quinta-feira</span></div><div id="t18c_f2"></div></div></div>
+      </div>
+    </div>
+<!-- FASE 3 -->
+    <div id="fase3" class="section">
+      <div class="section-header"><h2>Fase 3 — Padrinho</h2><p>Consolidação do Aprendizado</p></div>
+      <div class="lock-screen" id="lock3">
+        <div class="lock-icon">🔐</div>
+        <h3>Área restrita — Fase 3</h3>
+        <p>Digite a senha para acessar os conteúdos da Fase 3.</p>
+        <div class="pw-row"><input type="password" id="pw3" placeholder="Senha" onkeydown="if(event.key==='Enter')check(3)"/><button onclick="check(3)">Entrar</button></div>
+        <div class="pw-error" id="err3"></div>
+      </div>
+      <div class="locked-content" id="content3">
+        <div class="welcome-card green">
+          <span class="welcome-emoji">🌱</span>
+          <h3>Bem-vindo à Fase 3, Padrinho!</h3>
+          <p>Você chegou até aqui porque demonstrou que está pronto para dar o próximo passo e que passo lindo esse é. Agora você não é só aluno: você é cuidador e está em um curso profissionalizante!</p>
+          <p>Aqui você vai se aprofundar nos arquétipos, nas crenças antropológicas, em aulas de didática e nos 365 exercícios do UCEM.</p>
+          <p>Aproveite cada encontro, cada madrinhagem, cada afilhado. Eles são o seu maior acelerador e o nosso relacionamento é sempre suficiente. 💚</p>
+        </div>
+        <div class="action-btns">
+          <a href="https://classroom.google.com/c/ODcwNjQyNDQwNzky?cjc=633n62dg" target="_blank" rel="noopener noreferrer" class="action-btn primary">
+            <span class="btn-icon">📖</span><span>Acesse sua apostila!</span>
+          </a>
+          <a href="https://classroom.google.com/w/ODcwNjQyNDQwNzky/tc/ODcwNjg1Njk5MTIz" target="_blank" rel="noopener noreferrer" class="action-btn secondary">
+            <span class="btn-icon">🎬</span><span>Acesse as aulas gravadas</span>
+          </a>
+        </div>
+        <div class="pdf-card">
+          <div class="pdf-card-text"><h4>🎓 Curso Profissionalizante — PDF Completo</h4><p>Acesse o material no Google Drive</p></div>
+          <a href="https://drive.google.com/drive/folders/1OLfDWdooKg5oWiKB33VewddCHla9VpjY?usp=sharing" target="_blank" rel="noopener noreferrer" class="pdf-btn">Abrir PDF ↗</a>
+        </div>
+        <div class="summary-block">
+          <h4>📋 Resumo do Curso Profissionalizante</h4>
+          <p>A Formação de Terapeutas da Comunicação com Propósito é o seu novo momento da jornada consciencial, agora profissionalizante. Você continua sendo cuidado, mas sua jornada ganha contorno profissional: é hora de aprender a cuidar.</p>
+          <p><strong>O Terapeuta da Comunicação</strong> identifica barreiras que impedem a comunicação efetiva, usa o sistema de pensamento do próprio paciente como didática de cura e reversão de crenças, e promove mudança estrutural de mentalidade, resolução de conflitos e expansão consciencial.</p>
+          <p><strong>Respaldo:</strong> A metodologia une Ciência (biopsicologia, fenomenologia), Prática (técnicas de reversão de crenças e arquétipos) e Espiritualidade (fundamentação em Um Curso em Milagres). Registro oficial na ABRATH — CJAH-BR 19549.</p>
+          <p><strong>Sua atuação:</strong> Atendimentos individuais, terapias de casal, condução de grupos, empresas, escolas e consultorias.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">📅 Calendário — Todas as Turmas</div>
+          <div class="fase-tabs">
+            <button class="fase-tab on" onclick="showCrono('f3t18','f3',this)">T18 — Fase 1</button>
+            <button class="fase-tab" onclick="showCrono('f3t19','f3',this)">T19 — Fase 1</button>
+            <button class="fase-tab" onclick="showCrono('f3t17','f3',this)">T17 — Fase 2</button>
+          </div>
+          <div id="f3t18" class="crono-section on"><div id="t18c3"></div></div>
+          <div id="f3t19" class="crono-section"><div id="t19c3"></div></div>
+          <div id="f3t17" class="crono-section"><div id="t17c3"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 4 -->
+    <div id="fase4" class="section">
+      <div class="section-header"><h2>Fase 4 — Juiz de Paz</h2><p>Cuidado Integral — O Paredão</p></div>
+      <div class="lock-screen" id="lock4">
+        <div class="lock-icon">🔐</div>
+        <h3>Área restrita — Fase 4</h3>
+        <p>Digite a senha para acessar os conteúdos da Fase 4.</p>
+        <div class="pw-row"><input type="password" id="pw4" placeholder="Senha" onkeydown="if(event.key==='Enter')check(4)"/><button onclick="check(4)">Entrar</button></div>
+        <div class="pw-error" id="err4"></div>
+      </div>
+      <div class="locked-content" id="content4">
+        <div class="welcome-card gold">
+          <span class="welcome-emoji">💫</span>
+          <h3>Bem-vindo ao famoso Paredão!</h3>
+          <p>A Fase 4 é divertida, profunda e transformadora e foi exatamente por isso que você foi convidado a estar aqui.</p>
+          <p>Agora você mergulha de cabeça nas técnicas de Terapia da Comunicação, aprende a conduzir processos com profundidade e olha para crenças basais de forma leve, amorosa e sempre em relacionamento.</p>
+          <p>Respira fundo: você está pronto. 💛</p>
+        </div>
+        <div class="action-btns">
+          <a href="https://drive.google.com/file/d/1gP31RvPlDv8JhYgzumKO_VA_4MSkGrTD/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="action-btn primary">
+            <span class="btn-icon">📖</span><span>Acesse sua apostila!</span>
+          </a>
+          <a href="https://classroom.google.com/c/ODcwNjQwOTI1MDg4?cjc=paheptgj" target="_blank" rel="noopener noreferrer" class="action-btn secondary">
+            <span class="btn-icon">🎬</span><span>Acesse as aulas gravadas</span>
+          </a>
+        </div>
+        <div class="summary-block">
+          <h4>📋 Sobre a Apostila de Terapia da Comunicação</h4>
+          <p>Nesta fase você estuda o passo a passo completo de uma sessão de Terapia da Comunicação: como receber a pessoa, investigar, identificar e nomear crenças, fazer a ponte cultural entre o sistema atual e a saída, construir o treinamento mental e prático, e finalizar com acolhimento.</p>
+          <p>Você também aprofunda o estudo das <strong>5 Feridas Emocionais</strong> (Rejeição, Traição, Abandono, Humilhação e Injustiça) e dos <strong>4 Perfis de Comunicação</strong> (Amigável, Analítico, Dominador e Expressivo), aprendendo como cuidar de cada um deles dentro e fora da sessão.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">🤝 Roteiro JP — Encontro A: Cuidado Pessoal</div>
+          <span class="pill pill-orange">A cada encontro</span>
+          <ol style="padding-left:18px;margin-top:10px">
+            <li style="margin-bottom:10px;font-size:13.5px"><strong>Qual o foco mental que o afilhado está agora?</strong> Queixas, dores, preocupações, medos…</li>
+            <li style="margin-bottom:10px;font-size:13.5px"><strong>Como ele entendeu o arquétipo atual?</strong> Onde consegue ver nos relacionamentos, trabalho, família…</li>
+            <li style="margin-bottom:10px;font-size:13.5px"><strong>Como ele está praticando a saída do arquétipo atual?</strong> Ajudar a colocar em prática e identificar quando está exercendo.</li>
+            <li style="font-size:13.5px"><strong>Qual exercício do UCEM</strong> ele está e ajuda a entender o conteúdo e a prática.</li>
+          </ol>
+          <p style="margin-top:12px;font-size:12px;color:var(--muted)">⏰ Lembrete da data fixa! Próximo encontro em 15 dias.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">🤝 Roteiro JP — Encontro B: Processo de Cuidador</div>
+          <span class="pill pill-orange">A cada encontro</span>
+          <ol style="padding-left:18px;margin-top:10px">
+            <li style="margin-bottom:10px;font-size:13.5px"><strong>Quem são os afilhados dele?</strong></li>
+            <li style="margin-bottom:10px;font-size:13.5px"><strong>Como está o cuidado com cada afilhado?</strong> Agenda, madrinhagens no tempo certo, assuntos trazidos?</li>
+            <li style="margin-bottom:10px;font-size:13.5px"><strong>Como está o relacionamento com a dupla de Madrinhagem?</strong> Dificuldades? O que aprendeu de didática?</li>
+            <li style="margin-bottom:10px;font-size:13.5px"><strong>Fechamento sobre o MOMENTO DO AFILHADO</strong> — juntando tudo que percebeu.</li>
+            <li style="font-size:13.5px"><strong>Ajuda de didática para lidar com os afilhados</strong> e o que isso diz sobre ele no próprio processo.</li>
+          </ol>
+          <p style="margin-top:12px;font-size:12px;color:var(--muted)">⏰ Lembrete da data fixa! Próximo encontro em 15 dias.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">🧭 JP Mentor</div>
+          <p>Aqui você forma uma dupla com um padrinho recém chegado na fase 3 e juntos vocês cuidam do aluno da fase 2.</p>
+          <p>Para o aluno da fase 2, você será um padrinho experiente. Para nós, você será o cuidador dele ao mesmo tempo que nos ajuda a formar esse novo padrinho que é sua dupla.</p>
+          <div class="divider"></div>
+          <h3>Seu objetivo como JP Mentor</h3>
+          <ul>
+            <li>Encontros a cada 3 semanas como padrinho da fase 2</li>
+            <li>Dar feedback para o padrinho mais novo, que é sua dupla de atendimento</li>
+            <li>Reportar dificuldades ou feedbacks negativos à coordenação da escola sobre esse padrinho mais novo</li>
+            <li>Fazer parte da avaliação e visão do aluno da fase 2 antes dele chegar na fase 3, para juntos decidirmos se ele está preparado para o curso profissionalizante</li>
+            <li>Sua rotina é parecida com a de padrinho, mas sua missão é cuidar de quem cuida e colaborar com sua visão terapêutica</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 5 -->
+    <div id="fase5" class="section">
+      <div class="section-header"><h2>Fase 5 — Quase Terapeuta</h2><p>Estágio e formação final</p></div>
+      <div class="lock-screen" id="lock5">
+        <div class="lock-icon">🔐</div>
+        <h3>Área restrita — Fase 5</h3>
+        <p>Digite a senha para acessar os conteúdos da Fase 5.</p>
+        <div class="pw-row"><input type="password" id="pw5" placeholder="Senha" onkeydown="if(event.key==='Enter')check(5)"/><button onclick="check(5)">Entrar</button></div>
+        <div class="pw-error" id="err5"></div>
+      </div>
+      <div class="locked-content" id="content5">
+        <div class="welcome-card navy">
+          <span class="welcome-emoji">🎓</span>
+          <h3>Bem-vindo ao seu último semestre de Formação!</h3>
+          <p>Estamos imensamente felizes e orgulhosos de ter você com a gente todos esses anos. Você chegou, Quase Terapeuta!</p>
+          <p>Este é o semestre em que tudo o que você aprendeu fica expresso nos atendimentos, no TCC, na sua entrega como Terapeuta da Comunicação com Propósito.</p>
+          <p>Obrigado por confiar nesse processo e em você mesmo. Agora vai! 🩵</p>
+        </div>
+        <div class="action-btns">
+          <a href="https://drive.google.com/file/d/1gP31RvPlDv8JhYgzumKO_VA_4MSkGrTD/view" target="_blank" rel="noopener noreferrer" class="action-btn primary">
+            <span class="btn-icon">📖</span><span>Acesse sua apostila!</span>
+          </a>
+          <a href="https://classroom.google.com/w/ODcwNjQyODMyMTc4/tc/ODcxMjE4NTExMjg0" target="_blank" rel="noopener noreferrer" class="action-btn secondary">
+            <span class="btn-icon">🎬</span><span>Acesse as aulas gravadas</span>
+          </a>
+        </div>
+        <div class="card">
+          <div class="card-title">🌟 Roteiro QT — Encontro A: Cuidado Pessoal</div>
+          <span class="pill pill-teal">A cada encontro</span>
+          <ol style="padding-left:18px;margin-top:10px">
+            <li style="margin-bottom:10px;font-size:13.5px"><strong>Qual o foco mental que o afilhado está agora?</strong> Queixas, dores, preocupações, medos…</li>
+            <li style="margin-bottom:10px;font-size:13.5px"><strong>Como ele está entendendo as crenças basais e o arquétipo do indivíduo?</strong> Onde consegue identificar e nomear nos contextos que traz?</li>
+            <li style="margin-bottom:10px;font-size:13.5px"><strong>Como ele está praticando e usufruindo do Paredão?</strong> O que o processo da fase 4 está movendo nele?</li>
+            <li style="font-size:13.5px"><strong>Ele concluiu o UCEM? Ainda usufrui do livro?</strong> Como o conteúdo do livro está presente no seu dia a dia?</li>
+          </ol>
+          <p style="margin-top:12px;font-size:12px;color:var(--muted)">⏰ Lembrete da data fixa! Próximo encontro em 15 dias.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">🌟 Roteiro QT — Encontro B: Processo de Cuidador</div>
+          <span class="pill pill-teal">A cada encontro</span>
+          <ol style="padding-left:18px;margin-top:10px">
+            <li style="margin-bottom:10px;font-size:13.5px"><strong>Quem são os afilhados dele?</strong></li>
+            <li style="margin-bottom:10px;font-size:13.5px"><strong>Como está o cuidado com cada afilhado?</strong> Agenda, encontros no tempo certo, quais assuntos têm sido trazidos?</li>
+            <li style="margin-bottom:10px;font-size:13.5px"><strong>Como está o relacionamento com a dupla de madrinhagem da fase 2?</strong> Há dificuldades? O que tem aprendido com essa dinâmica?</li>
+            <li style="margin-bottom:10px;font-size:13.5px"><strong>Como está o relacionamento com seu afilhado da fase 3?</strong> Como está percebendo o desenvolvimento dele como padrinho?</li>
+            <li style="margin-bottom:10px;font-size:13.5px"><strong>Como ele classifica o momento de cada afilhado?</strong> O que essa leitura revela sobre o próprio processo dele?</li>
+            <li style="margin-bottom:10px;font-size:13.5px"><strong>Ajuda de didática para lidar com os afilhados.</strong> Quais ferramentas ele tem usado e o que ainda precisa desenvolver?</li>
+            <li style="font-size:13.5px"><strong>Exposição terapêutica:</strong> o que ele percebe das dificuldades com os afilhados e o que isso tem a ver com o próprio processo dele hoje?</li>
+          </ol>
+          <p style="margin-top:12px;font-size:12px;color:var(--muted)">⏰ Lembrete da data fixa! Próximo encontro em 15 dias.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">📖 Resumo — Terapia da Comunicação</div>
+          <div class="crono-block"><div class="crono-date">1. Receber a pessoa</div><div class="crono-aula">Qualidade de pensamentos, ambiente, tratativa profissional. A sessão SÓ começa quando a gente avisa a pessoa tudo que vai acontecer.</div></div>
+          <div class="crono-block"><div class="crono-date">2. Investigação</div><div class="crono-aula">Entender o que trouxe a pessoa, suas queixas, desejos. Descobrir Arquétipo e Crença. Regra: É ELA QUE DÁ O TOM.</div></div>
+          <div class="crono-block"><div class="crono-date">3. Identificação</div><div class="crono-aula">Se você sabe todos os níveis de crença, é ela! Se sabe o ciclo: sensação, cena, comportamento — pode falar.</div></div>
+          <div class="crono-block"><div class="crono-date">4. Exposição</div><div class="crono-aula">Recapitule conectando os pontos. Revele o nome que isso tem. Expor as consequências nas áreas da vida.</div></div>
+          <div class="crono-block"><div class="crono-date">5. Ponte Cultural</div><div class="crono-aula">Ponte entre o sistema de pensamento e a saída na realidade. Necessariamente tem um DE → PARA.</div></div>
+          <div class="crono-block"><div class="crono-date">6. Treinamento Mental</div><div class="crono-aula">Pedido para Deus. Use palavras que ela deseja sentir. Pedir para ler em voz alta e depois fechar os olhos.</div></div>
+          <div class="crono-block"><div class="crono-date">7. Treinamento Prático</div><div class="crono-aula">Prática em 2-3 situações que a pessoa trouxe. Com fala, corpo, pensamento, respiração.</div></div>
+          <div class="crono-block"><div class="crono-date">8. Finalização</div><div class="crono-aula">Sem consolos ou dicas finais. Foco em acolhimento e marcar próximas sessões.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TERAPEUTA FORMADO -->
+    <div id="tf" class="section">
+      <div class="section-header"><h2>Terapeuta Formado</h2><p>Comunidade dos Terapeutas da Comunicação</p></div>
+      <div class="lock-screen" id="lock6">
+        <div class="lock-icon">🔐</div>
+        <h3>Área restrita — Terapeuta Formado</h3>
+        <p>Digite a senha para acessar os conteúdos da Comunidade.</p>
+        <div class="pw-row"><input type="password" id="pw6" placeholder="Senha" onkeydown="if(event.key==='Enter')check(6)"/><button onclick="check(6)">Entrar</button></div>
+        <div class="pw-error" id="err6"></div>
+      </div>
+      <div class="locked-content" id="content6">
+        <div class="welcome-card plum">
+          <span class="welcome-emoji">💎</span>
+          <h3>Bem-vindo à Comunidade dos Terapeutas Formados</h3>
+          <p>É uma alegria a gente se manter junto, cuidando dessa corrente. Gratidão por estar aqui, por cuidar, por se aprofundar como Terapeuta da Comunicação (TC) cuidando desse time que será eternamente seu.</p>
+        </div>
+        <div class="action-btns">
+          <a href="https://drive.google.com/file/d/1gP31RvPlDv8JhYgzumKO_VA_4MSkGrTD/view" target="_blank" rel="noopener noreferrer" class="action-btn primary">
+            <span class="btn-icon">📖</span><span>Acesse a apostila de TC</span>
+          </a>
+          <a href="https://classroom.google.com/w/ODcwNjQyODMyMTc4/tc/ODcxMjE4NTExMjg0" target="_blank" rel="noopener noreferrer" class="action-btn secondary">
+            <span class="btn-icon">🎬</span><span>Acesse as aulas gravadas</span>
+          </a>
+        </div>
+        <div class="action-btns">
+          <a href="https://drive.google.com/drive/folders/1J69l_v6rYsvLLm0BtBhL8az_Khj5klKk?usp=sharing" target="_blank" rel="noopener noreferrer" class="action-btn secondary">
+            <span class="btn-icon">🗓</span><span>Cronograma Oficinas</span>
+          </a>
+          <a href="https://drive.google.com/drive/folders/10dm9jbR1Z2fRH6zRem3C-4keRKPY4xuN?usp=sharing" target="_blank" rel="noopener noreferrer" class="action-btn secondary">
+            <span class="btn-icon">📚</span><span>Grade curricular do TC</span>
+          </a>
+        </div>
+        <div class="card">
+          <div class="card-title">🤍 Cuidando de JP (Fase 4)</div>
+          <span class="pill pill-teal">2 encontros de 1 hora cada por mês</span>
+          <h3>Encontro 1 — Terapia da Comunicação</h3>
+          <ol style="padding-left:18px;margin-top:8px;margin-bottom:14px">
+            <li style="margin-bottom:8px;font-size:13.5px">Qual o foco mental que o afilhado está agora? Queixas, dores, preocupações, medos…</li>
+            <li style="margin-bottom:8px;font-size:13.5px">Como ele está entendendo as crenças basais e o arquétipo do indivíduo? Onde consegue identificar e nomear nos contextos que traz?</li>
+            <li style="margin-bottom:8px;font-size:13.5px">Como ele está praticando e usufruindo do Paredão? O que o processo da fase 4 está movendo nele?</li>
+            <li style="font-size:13.5px">Ele concluiu o UCEM? Ainda usufrui do livro? Como o conteúdo do livro está presente no seu dia a dia?</li>
+          </ol>
+          <h3>Encontro 2 — Cuidando de Cuidador</h3>
+          <ol style="padding-left:18px;margin-top:8px">
+            <li style="margin-bottom:8px;font-size:13.5px">Quem são os afilhados dele?</li>
+            <li style="margin-bottom:8px;font-size:13.5px">Como está o cuidado com cada afilhado? Agenda, encontros no tempo certo, quais assuntos têm sido trazidos?</li>
+            <li style="margin-bottom:8px;font-size:13.5px">Como está o relacionamento com a dupla de madrinhagem da fase 2? Há dificuldades? O que tem aprendido com essa dinâmica?</li>
+            <li style="margin-bottom:8px;font-size:13.5px">Como está o relacionamento com seu afilhado da fase 3? Como está percebendo o desenvolvimento dele como padrinho?</li>
+            <li style="margin-bottom:8px;font-size:13.5px">Como ele classifica o momento de cada afilhado? O que essa leitura revela sobre o próprio processo dele?</li>
+            <li style="margin-bottom:8px;font-size:13.5px">Ajuda de didática para lidar com os afilhados. Quais ferramentas ele tem usado e o que ainda precisa desenvolver?</li>
+            <li style="font-size:13.5px">Exposição terapêutica: o que ele percebe das dificuldades com os afilhados e o que isso tem a ver com o próprio processo dele hoje?</li>
+          </ol>
+        </div>
+        <div class="card">
+          <div class="card-title">💜 Cuidando de QT (Fase 5)</div>
+          <span class="pill pill-teal">1 terapia por mês de 2 horas cada</span>
+          <ul style="margin-top:10px">
+            <li>Aqui o aluno está na fase 5 fazendo oficinas semanais, atendendo voucher e sendo QT da fase 4</li>
+            <li>Ele ainda tem orientador de TCC para finalizar o processo e apresentação final (ele é orientado pelo professor, mas não tem encontros mais com ele)</li>
+            <li>Você é o único terapeuta dele e a ideia é o aluno usufruir da própria profissão que ele está se formando</li>
+            <li>Use as técnicas e a ordem da Terapia da Comunicação para que ele consiga identificar e receber o que ele também está entregando nos atendimentos populares</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">📖 Resumo — Terapia da Comunicação</div>
+          <div class="crono-block"><div class="crono-date">1. Receber a pessoa</div><div class="crono-aula">Qualidade de pensamentos, ambiente, tratativa profissional. A sessão SÓ começa quando a gente avisa a pessoa tudo que vai acontecer.</div></div>
+          <div class="crono-block"><div class="crono-date">2. Investigação</div><div class="crono-aula">Entender o que trouxe a pessoa, suas queixas, desejos. Descobrir Arquétipo e Crença. Regra: É ELA QUE DÁ O TOM.</div></div>
+          <div class="crono-block"><div class="crono-date">3. Identificação</div><div class="crono-aula">Se você sabe todos os níveis de crença, é ela! Se sabe o ciclo: sensação, cena, comportamento — pode falar.</div></div>
+          <div class="crono-block"><div class="crono-date">4. Exposição</div><div class="crono-aula">Recapitule conectando os pontos. Revele o nome que isso tem. Expor as consequências nas áreas da vida.</div></div>
+          <div class="crono-block"><div class="crono-date">5. Ponte Cultural</div><div class="crono-aula">Ponte entre o sistema de pensamento e a saída na realidade. Necessariamente tem um DE → PARA.</div></div>
+          <div class="crono-block"><div class="crono-date">6. Treinamento Mental</div><div class="crono-aula">Pedido para Deus. Use palavras que ela deseja sentir. Pedir para ler em voz alta e depois fechar os olhos.</div></div>
+          <div class="crono-block"><div class="crono-date">7. Treinamento Prático</div><div class="crono-aula">Prática em 2-3 situações que a pessoa trouxe. Com fala, corpo, pensamento, respiração.</div></div>
+          <div class="crono-block"><div class="crono-date">8. Finalização</div><div class="crono-aula">Sem consolos ou dicas finais. Foco em acolhimento e marcar próximas sessões.</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const T17=[
+  {d:"06/05",a:"Primeira aula Fase 2 — Aferindo termos",t:""},
+  {d:"07–13/05",a:"JP — Primeiro encontro",t:"jp"},
+  {d:"13/05",a:"Os substitutos de Deus 1",t:""},
+  {d:"20/05",a:"Os substitutos de Deus 2",t:""},
+  {d:"27/05",a:"Os substitutos de Deus 3",t:""},
+  {d:"28/05–10/06",a:"Primeira madrinhagem",t:"mad"},
+  {d:"03/06",a:"O opressor da paz (controle)",t:""},
+  {d:"10/06",a:"O desenvolvimento da confiança",t:""},
+  {d:"17/06",a:"Renunciando à insuficiência",t:""},
+  {d:"18–24/06",a:"Segunda madrinhagem",t:"mad"},
+  {d:"24/06",a:"Copa — Jogo do Brasil",t:"ferias"},
+  {d:"01/07",a:"Teoricamente não acontece nada",t:""},
+  {d:"08/07",a:"O anticristo (rejeição)",t:""},
+  {d:"13–24/07",a:"Férias",t:"ferias"},
+  {d:"29/07",a:"Aulão de volta às aulas",t:"esp"},
+  {d:"05/08",a:"O que eu preciso fazer?",t:""},
+  {d:"06–12/08",a:"JP — Segundo encontro",t:"jp"},
+  {d:"12/08",a:"Casamento Turma 19",t:"esp"},
+  {d:"19/08",a:"Aprendendo a ouvir a intuição",t:""},
+  {d:"26/08",a:"Imaginação bloqueando a intuição",t:""},
+  {d:"02/09",a:"Intuição: o acesso à verdade",t:""},
+  {d:"03–09/09",a:"Primeira madrinhagem",t:"mad"},
+  {d:"09/09",a:"Abandonando um jeito de pensar (artista)",t:""},
+  {d:"16/09",a:"Relacionamento",t:""},
+  {d:"23/09",a:"Parei, e agora?",t:""},
+  {d:"24–30/09",a:"JP — Terceiro encontro",t:"jp"},
+  {d:"30/09",a:"Aprendendo a cuidar do mundo",t:""},
+  {d:"07/10",a:"A saída (online)",t:""},
+  {d:"14/10",a:"Daqui até a transcendência",t:""},
+  {d:"07–21/10",a:"Reunião com professores",t:"esp"},
+  {d:"21/10",a:"Renovação de votos Fase 2",t:"esp"},
+  {d:"28/10",a:"Treinamento de Padrinhos 1",t:""},
+  {d:"29/10–04/11",a:"Segunda madrinhagem",t:"mad"},
+  {d:"04/11",a:"Treinamento de Padrinhos 2",t:""},
+  {d:"11/11",a:"Treinamento de Padrinhos 3",t:""},
+  {d:"18/11",a:"Chegada na Aula de Padrinhos",t:"esp"},
+];
+const T18=[
+  {d:"12/03",a:"Casamento — CCP 1",t:"esp"},
+  {d:"19/03",a:"Comunicação com Propósito 2",t:""},
+  {d:"26/03",a:"Comunicação com Propósito 3",t:""},
+  {d:"27/03–02/04",a:"Primeira madrinhagem",t:"mad"},
+  {d:"02/04",a:"Contexto 1",t:""},
+  {d:"09/04",a:"Contexto 2",t:""},
+  {d:"16/04",a:"Contexto 3",t:""},
+  {d:"23/04",a:"Observador da Mente",t:""},
+  {d:"24–30/04",a:"Segunda madrinhagem",t:"mad"},
+  {d:"30/04",a:"Mensageiro 1",t:""},
+  {d:"07/05",a:"Mensageiro 2",t:""},
+  {d:"14/05",a:"Mensageiro 3",t:""},
+  {d:"15–21/05",a:"Terceira madrinhagem",t:"mad"},
+  {d:"21/05",a:"Interlocutor 1",t:""},
+  {d:"28/05",a:"Interlocutor 2",t:""},
+  {d:"04/06",a:"Feriado (sem aula)",t:"ferias"},
+  {d:"11/06",a:"Interlocutor 3",t:""},
+  {d:"12–18/06",a:"Primeira madrinhagem",t:"mad"},
+  {d:"18/06",a:"Mensagem 1",t:""},
+  {d:"25/06",a:"Mensagem 2",t:""},
+  {d:"02/07",a:"Mensagem 3",t:""},
+  {d:"03–09/07",a:"Segunda madrinhagem",t:"mad"},
+  {d:"09/07",a:"Feriado",t:"ferias"},
+  {d:"16–23/07",a:"Férias",t:"ferias"},
+  {d:"29/07",a:"Aulão",t:"esp"},
+  {d:"30/07",a:"Usufruto 1",t:""},
+  {d:"06/08",a:"Usufruto 2",t:""},
+  {d:"13/08",a:"Usufruto 3",t:""},
+  {d:"14–20/08",a:"Terceira madrinhagem",t:"mad"},
+  {d:"20/08",a:"Dar e Receber 1 e 2",t:""},
+  {d:"27/08",a:"Renovação de Votos — Fase 1",t:"esp"},
+  {d:"28/08–03/09",a:"Primeira madrinhagem",t:"mad"},
+  {d:"03/09",a:"Primeira aula Fase 2",t:"esp"},
+];
+const T19=[
+  {d:"12/08",a:"Casamento (CCP 1)",t:"esp"},
+  {d:"19/08",a:"Comunicação com Propósito 2",t:""},
+  {d:"26/08",a:"Comunicação com Propósito 3",t:""},
+  {d:"27/08–02/09",a:"Primeira madrinhagem",t:"mad"},
+  {d:"02/09",a:"Contexto 1",t:""},
+  {d:"09/09",a:"Contexto 2",t:""},
+  {d:"16/09",a:"Contexto 3",t:""},
+  {d:"23/09",a:"O observador da mente",t:""},
+  {d:"24–30/09",a:"Segunda madrinhagem",t:"mad"},
+  {d:"30/09",a:"Mensageiro 1",t:""},
+  {d:"07/10",a:"Mensageiro 2",t:""},
+  {d:"14/10",a:"Mensageiro 3",t:""},
+  {d:"15–21/10",a:"Primeira madrinhagem",t:"mad"},
+  {d:"21/10",a:"Interlocutor 1",t:""},
+  {d:"28/10",a:"Interlocutor 2",t:""},
+  {d:"04/11",a:"Interlocutor 3",t:""},
+  {d:"05–11/11",a:"Segunda madrinhagem",t:"mad"},
+  {d:"11/11",a:"Mensagem 1",t:""},
+  {d:"18/11",a:"Mensagem 2",t:""},
+  {d:"25/11",a:"Mensagem 3",t:""},
+  {d:"26/11–02/12",a:"Terceira madrinhagem",t:"mad"},
+  {d:"02/12",a:"Usufruto 1",t:""},
+  {d:"09/12",a:"Usufruto 2",t:""},
+  {d:"17/12",a:"Aulão (quinta-feira)",t:"esp"},
+  {d:"18/12–20/01",a:"Primeira madrinhagem",t:"mad"},
+  {d:"20/01",a:"Usufruto 3 / Aula extra",t:""},
+  {d:"27/01",a:"Dar e Receber 1 e 2",t:""},
+  {d:"03/02",a:"Renovação de Votos — Fase 1",t:"esp"},
+  {d:"04/02–17/02",a:"Segunda madrinhagem",t:"mad"},
+  {d:"10/02",a:"Carnaval (não tem aula)",t:"ferias"},
+  {d:"17/02",a:"Primeira aula Fase 2",t:"esp"},
+];
+const T18_F2=[
+  {d:"03/09",a:"Primeira aula Fase 2 — Aferindo termos",t:""},
+  {d:"04–10/09",a:"Madrinhagem",t:"mad"},
+  {d:"10/09",a:"Os substitutos de Deus 1",t:""},
+  {d:"17/09",a:"Os substitutos de Deus 2",t:""},
+  {d:"24/09",a:"Os substitutos de Deus 3",t:""},
+  {d:"25/09–01/10",a:"Madrinhagem",t:"mad"},
+  {d:"01/10",a:"O opressor da paz (controle)",t:""},
+  {d:"08/10",a:"O desenvolvimento da confiança",t:""},
+  {d:"15/10",a:"Renunciando à insuficiência",t:""},
+  {d:"16–22/10",a:"Madrinhagem",t:"mad"},
+  {d:"22/10",a:"Teoricamente não acontece nada",t:""},
+  {d:"29/10",a:"O anticristo (rejeição)",t:""},
+  {d:"05/11",a:"O que eu preciso fazer?",t:""},
+  {d:"06–12/11",a:"Madrinhagem",t:"mad"},
+  {d:"12/11",a:"Aprendendo a ouvir a intuição",t:""},
+  {d:"19/11",a:"Imaginação bloqueando a intuição",t:""},
+  {d:"26/11",a:"Intuição: o acesso à verdade",t:""},
+  {d:"27/11–03/12",a:"Madrinhagem",t:"mad"},
+  {d:"03/12",a:"Abandonando um jeito de pensar (artista)",t:""},
+  {d:"10/12",a:"Relacionamento",t:""},
+  {d:"17/12",a:"Aulão com todas as turmas",t:"esp"},
+  {d:"18/12–17/01",a:"Férias",t:"ferias"},
+  {d:"21/01",a:"Parei, e agora?",t:""},
+  {d:"28/01",a:"Aprendendo a cuidar do mundo",t:""},
+  {d:"29/01–04/02",a:"Madrinhagem",t:"mad"},
+  {d:"04/02",a:"A saída",t:""},
+  {d:"05–10/02",a:"Carnaval",t:"ferias"},
+  {d:"11/02",a:"Daqui até a transcendência",t:""},
+  {d:"18/02",a:"Renovação de Votos — Fase 2",t:"esp"},
+  {d:"19–25/02",a:"Madrinhagem",t:"mad"},
+  {d:"25/02",a:"Treinamento de Padrinhos 1",t:""},
+  {d:"04/03",a:"Treinamento de Padrinhos 2",t:""},
+  {d:"09/03",a:"Chegada da Turma 18 na Aula de Padrinhos",t:"esp"},
+  {d:"11/03",a:"Chegada Turma 20",t:"esp"},
+  {d:"16/03",a:"Apresentação de TCC Turma 7",t:"esp"},
+];
+function tagLabel(t){
+  if(t==="mad")return`<span class="crono-tag tag-mad">👥 Madrinhagem</span>`;
+  if(t==="jp")return`<span class="crono-tag tag-jp">📍 JP</span>`;
+  if(t==="ferias")return`<span class="crono-tag tag-ferias">🗓 Recesso</span>`;
+  if(t==="esp")return`<span class="crono-tag tag-esp">⭐ Especial</span>`;
+  return"";
+}
+function renderCrono(data,el){if(!el)return;el.innerHTML=data.map(i=>`<div class="crono-block"><div class="crono-date">${i.d}${tagLabel(i.t)}</div><div class="crono-aula">${i.a}</div></div>`).join("");}
+renderCrono(T17,document.getElementById("t17c"));
+renderCrono(T18_F2,document.getElementById("t18c_f2"));
+renderCrono(T18,document.getElementById("t18c"));
+renderCrono(T19,document.getElementById("t19c"));
+renderCrono(T18,document.getElementById("t18c3"));
+renderCrono(T19,document.getElementById("t19c3"));
+renderCrono(T17,document.getElementById("t17c3"));
+
+const NAV_MAP={manual:0,cal:1,fase1:2,fase2:3,fase3:4,fase4:5,fase5:6,tf:7};
+function showTab(id){
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  document.querySelectorAll(".nav-btn")[NAV_MAP[id]].classList.add("active");
+}
+function showCrono(id,group,btn){
+  const groups={f1:["f1t18","f1t19"],f2:["f2t17","f2t18"],f3:["f3t18","f3t19","f3t17"]};
+  (groups[group]||[]).forEach(s=>{const el=document.getElementById(s);if(el)el.classList.remove("on");});
+  const el=document.getElementById(id);if(el)el.classList.add("on");
+  btn.closest(".fase-tabs").querySelectorAll(".fase-tab").forEach(b=>b.classList.remove("on"));
+  btn.classList.add("on");
+}
+const PASSWORDS={2:"fase2VS",3:"soupadrinho",4:"JP!vs",5:"fase5-qt",6:"comunidade"};
+function check(n){
+  const pw=document.getElementById("pw"+n).value;
+  const err=document.getElementById("err"+n);
+  if(pw===PASSWORDS[n]){
+    document.getElementById("lock"+n).style.display="none";
+    document.getElementById("content"+n).classList.add("unlocked");
+    err.textContent="";
+  }else{
+    err.textContent="Senha incorreta. Tente novamente.";
+    document.getElementById("pw"+n).value="";
+  }
+}
+</script>
+</body>
+</html>
