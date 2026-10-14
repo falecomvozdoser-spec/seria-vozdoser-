@@ -65,6 +65,7 @@ h3{font-size:12.5px;font-weight:800;color:var(--tiffany-dark);margin:16px 0 6px;
 .tag-mad{background:var(--tiffany-light);color:var(--tiffany-dark)}
 .tag-jp{background:var(--orange-bg);color:var(--orange)}
 .tag-ferias{background:#F0F0F0;color:#777}.tag-esp{background:#FEF9E7;color:#B8860B}
+.cal-year{font-size:12px;font-weight:800;color:var(--tiffany-dark);letter-spacing:1.5px;margin:6px 0 10px;text-transform:uppercase}
 .cal-block{background:#fff;border-radius:14px;border:1px solid #CCE8E7;padding:14px 18px;margin-bottom:10px;display:flex;align-items:center;gap:16px;box-shadow:0 2px 10px rgba(0,208,202,.07);transition:transform .15s,box-shadow .15s}
 .cal-block:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,208,202,.13)}
 .cal-date-box{background:var(--tiffany);color:#fff;border-radius:12px;padding:10px 14px;text-align:center;min-width:64px;flex-shrink:0}
@@ -273,11 +274,9 @@ h3{font-size:12.5px;font-weight:800;color:var(--tiffany-dark);margin:16px 0 6px;
 
     <!-- CALENDÁRIO -->
     <div id="cal" class="section">
-      <div class="section-header"><h2>Calendário da Escola</h2><p>Eventos e datas importantes — 2026</p></div>
-      <div class="cal-block">
-        <div class="cal-date-box"><div class="cal-day">26</div><div class="cal-month">SET</div></div>
-        <div class="cal-info"><div class="cal-event">Workshop Voz do Ser</div><span class="cal-type cal-ws">26 e 27 de setembro</span></div>
-      </div>
+      <div class="section-header"><h2>Calendário da Escola</h2><p>Eventos e datas importantes — 2026 e 2027</p></div>
+
+      <div class="cal-year">2026</div>
       <div class="cal-block">
         <div class="cal-date-box" style="background:#5E35B1"><div class="cal-day">23</div><div class="cal-month">OUT</div></div>
         <div class="cal-info"><div class="cal-event">Ser em Cena 2</div><span class="cal-type cal-show">23, 24 e 25 de outubro</span></div>
@@ -288,7 +287,61 @@ h3{font-size:12.5px;font-weight:800;color:var(--tiffany-dark);margin:16px 0 6px;
       </div>
       <div class="cal-block">
         <div class="cal-date-box" style="background:#B8860B"><div class="cal-day">21</div><div class="cal-month">DEZ</div></div>
-        <div class="cal-info"><div class="cal-event">Férias Escolares</div><span class="cal-type cal-ferias">21 dez → 14 jan/27</span></div>
+        <div class="cal-info"><div class="cal-event">Férias Escolares</div><span class="cal-type cal-ferias">21 dez → 17 jan/27</span></div>
+      </div>
+
+      <div class="cal-year" style="margin-top:18px">2027</div>
+      <div class="cal-block">
+        <div class="cal-date-box" style="background:#2E7D32"><div class="cal-day">18</div><div class="cal-month">JAN/27</div></div>
+        <div class="cal-info"><div class="cal-event">Volta às Aulas</div><span class="cal-type cal-aula">18 de janeiro/27 (segunda-feira)</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box"><div class="cal-day">23</div><div class="cal-month">JAN/27</div></div>
+        <div class="cal-info"><div class="cal-event">Workshop Voz do Ser</div><span class="cal-type cal-ws">23 e 24 de janeiro/27</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box"><div class="cal-day">06</div><div class="cal-month">MAR/27</div></div>
+        <div class="cal-info"><div class="cal-event">Workshop Voz do Ser</div><span class="cal-type cal-ws">6 e 7 de março/27</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box" style="background:#1565C0"><div class="cal-day">18</div><div class="cal-month">MAR/27</div></div>
+        <div class="cal-info"><div class="cal-event">Chegada da Turma 20</div><span class="cal-type cal-turma">18 de março/27 (quinta-feira)</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box"><div class="cal-day">01</div><div class="cal-month">MAI/27</div></div>
+        <div class="cal-info"><div class="cal-event">Workshop Voz do Ser — 10 anos do Voz do Ser</div><span class="cal-type cal-ws">1 e 2 de maio/27</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box"><div class="cal-day">26</div><div class="cal-month">JUN/27</div></div>
+        <div class="cal-info"><div class="cal-event">Workshop Voz do Ser</div><span class="cal-type cal-ws">26 e 27 de junho/27</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box" style="background:#B8860B"><div class="cal-day">12</div><div class="cal-month">JUL/27</div></div>
+        <div class="cal-info"><div class="cal-event">Férias Escolares</div><span class="cal-type cal-ferias">12 jul → 25 jul/27</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box" style="background:#2E7D32"><div class="cal-day">27</div><div class="cal-month">JUL/27</div></div>
+        <div class="cal-info"><div class="cal-event">Aulão</div><span class="cal-type cal-aula">27 de julho/27 (terça-feira)</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box"><div class="cal-day">14</div><div class="cal-month">AGO/27</div></div>
+        <div class="cal-info"><div class="cal-event">Workshop Voz do Ser</div><span class="cal-type cal-ws">14 e 15 de agosto/27</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box" style="background:#1565C0"><div class="cal-day">01</div><div class="cal-month">SET/27</div></div>
+        <div class="cal-info"><div class="cal-event">Chegada da Turma 21</div><span class="cal-type cal-turma">1 de setembro/27 (quarta-feira)</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box"><div class="cal-day">02</div><div class="cal-month">OUT/27</div></div>
+        <div class="cal-info"><div class="cal-event">Workshop Voz do Ser</div><span class="cal-type cal-ws">2 e 3 de outubro/27</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box"><div class="cal-day">27</div><div class="cal-month">NOV/27</div></div>
+        <div class="cal-info"><div class="cal-event">Workshop Voz do Ser</div><span class="cal-type cal-ws">27 e 28 de novembro/27</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box" style="background:#607D8B"><div class="cal-day">✨</div><div class="cal-month">EM BREVE</div></div>
+        <div class="cal-info"><div class="cal-event">Novidades em breve…</div><span class="cal-type cal-turma">Fique de olho!</span></div>
       </div>
     </div>
 
@@ -327,7 +380,8 @@ h3{font-size:12.5px;font-weight:800;color:var(--tiffany-dark);margin:16px 0 6px;
         <div id="f2t18" class="crono-section"><div class="card"><div class="card-title">Turma 18 — Fase 2 <span class="badge">Quinta-feira</span></div><div id="t18c_f2"></div></div></div>
       </div>
     </div>
-<!-- FASE 3 -->
+
+    <!-- FASE 3 -->
     <div id="fase3" class="section">
       <div class="section-header"><h2>Fase 3 — Padrinho</h2><p>Consolidação do Aprendizado</p></div>
       <div class="lock-screen" id="lock3">
@@ -593,108 +647,58 @@ h3{font-size:12.5px;font-weight:800;color:var(--tiffany-dark);margin:16px 0 6px;
 
 <script>
 const T17=[
-  {d:"06/05",a:"Primeira aula Fase 2 — Aferindo termos",t:""},
-  {d:"07–13/05",a:"JP — Primeiro encontro",t:"jp"},
-  {d:"13/05",a:"Os substitutos de Deus 1",t:""},
-  {d:"20/05",a:"Os substitutos de Deus 2",t:""},
-  {d:"27/05",a:"Os substitutos de Deus 3",t:""},
-  {d:"28/05–10/06",a:"Primeira madrinhagem",t:"mad"},
-  {d:"03/06",a:"O opressor da paz (controle)",t:""},
-  {d:"10/06",a:"O desenvolvimento da confiança",t:""},
-  {d:"17/06",a:"Renunciando à insuficiência",t:""},
-  {d:"18–24/06",a:"Segunda madrinhagem",t:"mad"},
-  {d:"24/06",a:"Copa — Jogo do Brasil",t:"ferias"},
-  {d:"01/07",a:"Teoricamente não acontece nada",t:""},
-  {d:"08/07",a:"O anticristo (rejeição)",t:""},
-  {d:"13–24/07",a:"Férias",t:"ferias"},
-  {d:"29/07",a:"Aulão de volta às aulas",t:"esp"},
-  {d:"05/08",a:"O que eu preciso fazer?",t:""},
-  {d:"06–12/08",a:"JP — Segundo encontro",t:"jp"},
-  {d:"12/08",a:"Casamento Turma 19",t:"esp"},
-  {d:"19/08",a:"Aprendendo a ouvir a intuição",t:""},
-  {d:"26/08",a:"Imaginação bloqueando a intuição",t:""},
-  {d:"02/09",a:"Intuição: o acesso à verdade",t:""},
-  {d:"03–09/09",a:"Primeira madrinhagem",t:"mad"},
-  {d:"09/09",a:"Abandonando um jeito de pensar (artista)",t:""},
-  {d:"16/09",a:"Relacionamento",t:""},
-  {d:"23/09",a:"Parei, e agora?",t:""},
-  {d:"24–30/09",a:"Segunda madrinhagem",t:"mad"},
-  {d:"30/09",a:"Aprendendo a cuidar do mundo",t:""},
-  {d:"07/10",a:"A saída (online)",t:""},
-  {d:"14/10",a:"Daqui até a transcendência",t:""},
-  {d:"07–21/10",a:"Reunião com professores",t:"esp"},
   {d:"21/10",a:"Renovação de votos Fase 2",t:"esp"},
+  {d:"22/10",a:"Reunião de passagem de fase",t:"esp"},
   {d:"28/10",a:"Treinamento de Padrinhos 1",t:""},
-  {d:"29/10–04/11",a:"Terceira madrinhagem",t:"mad"},
+  {d:"29/10–04/11",a:"Semana de madrinhagem",t:"mad"},
   {d:"04/11",a:"Treinamento de Padrinhos 2",t:""},
   {d:"11/11",a:"Treinamento de Padrinhos 3",t:""},
   {d:"17/11",a:"Mudança para terça-feira<br>Chegada na aula de padrinhos",t:"esp"},
 ];
 const T18_F2=[
-  {d:"03/09",a:"Primeira aula Fase 2 — Aferindo termos",t:""},
-  {d:"04–10/09",a:"Madrinhagem",t:"mad"},
-  {d:"10/09",a:"Os substitutos de Deus 1",t:""},
-  {d:"17/09",a:"Os substitutos de Deus 2",t:""},
-  {d:"24/09",a:"Os substitutos de Deus 3",t:""},
-  {d:"25/09–01/10",a:"Madrinhagem",t:"mad"},
-  {d:"01/10",a:"O opressor da paz (controle)",t:""},
-  {d:"08/10",a:"O desenvolvimento da confiança",t:""},
-  {d:"15/10",a:"Renunciando à insuficiência",t:""},
-  {d:"16–22/10",a:"Madrinhagem",t:"mad"},
+  {d:"16–22/10",a:"Semana de madrinhagem",t:"mad"},
   {d:"22/10",a:"Teoricamente não acontece nada",t:""},
   {d:"29/10",a:"O anticristo (rejeição)",t:""},
   {d:"05/11",a:"O que eu preciso fazer?",t:""},
-  {d:"06–12/11",a:"Madrinhagem",t:"mad"},
+  {d:"06–12/11",a:"Semana de madrinhagem",t:"mad"},
   {d:"12/11",a:"Aprendendo a ouvir a intuição",t:""},
   {d:"19/11",a:"Imaginação bloqueando a intuição",t:""},
   {d:"26/11",a:"Intuição: o acesso à verdade",t:""},
-  {d:"27/11–03/12",a:"Madrinhagem",t:"mad"},
+  {d:"27/11–03/12",a:"Semana de madrinhagem",t:"mad"},
   {d:"03/12",a:"Abandonando um jeito de pensar (artista)",t:""},
   {d:"10/12",a:"Relacionamento",t:""},
   {d:"17/12",a:"Aulão com todas as turmas",t:"esp"},
   {d:"18/12–17/01/27",a:"Férias",t:"ferias"},
   {d:"21/01/27",a:"Parei, e agora?",t:""},
   {d:"28/01/27",a:"Aprendendo a cuidar do mundo",t:""},
-  {d:"29/01/27–04/02/27",a:"Madrinhagem",t:"mad"},
+  {d:"29/01/27–04/02/27",a:"Semana de madrinhagem",t:"mad"},
   {d:"04/02/27",a:"A saída",t:""},
   {d:"05–10/02/27",a:"Carnaval",t:"ferias"},
   {d:"11/02/27",a:"Daqui até a transcendência",t:""},
   {d:"18/02/27",a:"Renovação de Votos — Fase 2",t:"esp"},
-  {d:"19–25/02/27",a:"Madrinhagem",t:"mad"},
+  {d:"19–25/02/27",a:"Semana de madrinhagem",t:"mad"},
   {d:"25/02/27",a:"Treinamento de Padrinhos 1",t:""},
   {d:"04/03/27",a:"Treinamento de Padrinhos 2",t:""},
   {d:"09/03/27",a:"Mudança para terça-feira<br>Chegada na aula de padrinhos",t:"esp"},
 ];
 const T19=[
-  {d:"12/08",a:"Casamento (CCP 1)",t:"esp"},
-  {d:"19/08",a:"Comunicação com Propósito 2",t:""},
-  {d:"26/08",a:"Comunicação com Propósito 3",t:""},
-  {d:"27/08–02/09",a:"Primeira madrinhagem",t:"mad"},
-  {d:"02/09",a:"Contexto 1",t:""},
-  {d:"09/09",a:"Contexto 2",t:""},
-  {d:"16/09",a:"Contexto 3",t:""},
-  {d:"23/09",a:"O observador da mente",t:""},
-  {d:"24–30/09",a:"Segunda madrinhagem",t:"mad"},
-  {d:"30/09",a:"Mensageiro 1",t:""},
-  {d:"07/10",a:"Mensageiro 2",t:""},
-  {d:"14/10",a:"Mensageiro 3",t:""},
-  {d:"15–21/10",a:"Primeira madrinhagem",t:"mad"},
+  {d:"15–21/10",a:"Semana de madrinhagem",t:"mad"},
   {d:"21/10",a:"Interlocutor 1",t:""},
   {d:"28/10",a:"Interlocutor 2",t:""},
   {d:"04/11",a:"Interlocutor 3",t:""},
-  {d:"05–11/11",a:"Segunda madrinhagem",t:"mad"},
+  {d:"05–11/11",a:"Semana de madrinhagem",t:"mad"},
   {d:"11/11",a:"Mensagem 1",t:""},
   {d:"18/11",a:"Mensagem 2",t:""},
   {d:"25/11",a:"Mensagem 3",t:""},
-  {d:"26/11–02/12",a:"Terceira madrinhagem",t:"mad"},
+  {d:"26/11–02/12",a:"Semana de madrinhagem",t:"mad"},
   {d:"02/12",a:"Usufruto 1",t:""},
   {d:"09/12",a:"Usufruto 2",t:""},
   {d:"17/12",a:"Aulão (quinta-feira)",t:"esp"},
-  {d:"18/12–20/01/27",a:"Primeira madrinhagem",t:"mad"},
+  {d:"18/12–20/01/27",a:"Semana de madrinhagem",t:"mad"},
   {d:"20/01/27",a:"Usufruto 3 / Aula extra",t:""},
   {d:"27/01/27",a:"Dar e Receber 1 e 2",t:""},
   {d:"03/02/27",a:"Renovação de Votos — Fase 1",t:"esp"},
-  {d:"04/02/27–17/02/27",a:"Segunda madrinhagem",t:"mad"},
+  {d:"04/02/27–17/02/27",a:"Semana de madrinhagem",t:"mad"},
   {d:"10/02/27",a:"Carnaval (não tem aula)",t:"ferias"},
   {d:"17/02/27",a:"Primeira aula Fase 2",t:"esp"},
 ];
