@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SER-IA — Área do Aluno</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -59,6 +61,10 @@ h3{font-size:12.5px;font-weight:800;color:var(--tiffany-dark);margin:16px 0 6px;
 .locked-content{display:none}.unlocked{display:block!important}
 .crono-block{background:var(--gray);border-left:4px solid var(--tiffany);border-radius:0 10px 10px 0;padding:11px 15px;margin-bottom:8px;transition:background .15s}
 .crono-block:hover{background:var(--tiffany-light)}
+.crono-block.here{background:var(--tiffany-light);border-left-color:var(--tiffany-dark);box-shadow:0 0 0 2px var(--tiffany);position:relative}
+.here-chip{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:800;color:#fff;background:var(--tiffany);padding:2px 9px 2px 6px;border-radius:10px;margin-left:6px;vertical-align:middle;letter-spacing:.3px}
+.here-chip svg{width:13px;height:13px;animation:hb 1.4s ease-in-out infinite}
+@keyframes hb{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
 .crono-date{font-size:11.5px;color:var(--tiffany-dark);font-weight:700;margin-bottom:3px;letter-spacing:.3px}
 .crono-aula{font-size:13.5px;color:#2A3E3D;font-weight:500}
 .crono-tag{display:inline-block;font-size:10.5px;padding:2px 8px;border-radius:8px;margin-left:6px;vertical-align:middle;font-weight:600}
@@ -67,6 +73,8 @@ h3{font-size:12.5px;font-weight:800;color:var(--tiffany-dark);margin:16px 0 6px;
 .tag-ferias{background:#F0F0F0;color:#777}.tag-esp{background:#FEF9E7;color:#B8860B}
 .cal-year{font-size:12px;font-weight:800;color:var(--tiffany-dark);letter-spacing:1.5px;margin:6px 0 10px;text-transform:uppercase}
 .cal-block{background:#fff;border-radius:14px;border:1px solid #CCE8E7;padding:14px 18px;margin-bottom:10px;display:flex;align-items:center;gap:16px;box-shadow:0 2px 10px rgba(0,208,202,.07);transition:transform .15s,box-shadow .15s}
+.cal-party{border:2px solid var(--tiffany);background:linear-gradient(135deg,#fff,#E0F8F7)}
+.cal-note{font-size:12px;color:var(--tiffany-dark);margin-top:6px;font-weight:600}
 .cal-block:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,208,202,.13)}
 .cal-date-box{background:var(--tiffany);color:#fff;border-radius:12px;padding:10px 14px;text-align:center;min-width:64px;flex-shrink:0}
 .cal-date-box .cal-day{font-size:22px;font-weight:900;line-height:1}
@@ -116,11 +124,131 @@ h3{font-size:12.5px;font-weight:800;color:var(--tiffany-dark);margin:16px 0 6px;
 .mini-link-card .mini-sub{font-size:10.5px;opacity:.85;line-height:1.35}
 .tcc-btn{display:block;background:linear-gradient(135deg,#0A1628,#1A3A6B);color:#fff;text-decoration:none;text-align:center;padding:16px;border-radius:14px;font-size:14px;font-weight:800;margin-bottom:14px;transition:all .2s;box-shadow:0 4px 16px rgba(10,22,40,.25)}
 .tcc-btn:hover{transform:translateY(-2px)}
+
+/* ===== TCHAN: Tiffany luminoso + Jornada do aluno ===== */
+:root{--gold:#D4A017;--gold-soft:#FFF6DC;--ring:rgba(0,208,202,.35)}
+body{background:radial-gradient(1200px 500px at 50% -120px,#BFF3F1 0%,transparent 70%),linear-gradient(180deg,#E9FBFA 0%,#F7FEFD 60%,#EAF7F6 100%);background-attachment:fixed}
+#app{box-shadow:0 10px 70px rgba(0,160,155,.18);border-radius:0 0 28px 28px;overflow:hidden;background:#fff}
+.topbar{position:relative;overflow:hidden;background:linear-gradient(120deg,#007F7A 0%,#00B7B1 55%,#00D0CA 100%);padding:26px 24px 24px;border-bottom:4px solid transparent;border-image:linear-gradient(90deg,#D4A017,#FFE9A6,#D4A017) 1}
+.topbar::before{content:"";position:absolute;right:-40px;top:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.28),transparent 70%)}
+.topbar::after{content:"";position:absolute;left:38%;bottom:-70px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(255,233,166,.30),transparent 70%)}
+.topbar-left,.topbar-right{position:relative;z-index:1}
+.logo-circle{width:50px;height:50px;background:linear-gradient(135deg,rgba(255,255,255,.35),rgba(255,255,255,.1));border:2px solid rgba(255,255,255,.6);box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.topbar-brand h1{font-size:26px;letter-spacing:3px;text-shadow:0 2px 10px rgba(0,0,0,.15)}
+.nav{position:sticky;top:0;z-index:20;gap:6px;padding:10px 12px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid #D7F1F0;box-shadow:0 6px 18px rgba(0,160,155,.08)}
+.nav-btn{border-bottom:none;margin-bottom:0;border-radius:999px;padding:9px 16px}
+.nav-btn.active{background:linear-gradient(135deg,var(--tiffany),#00A8A3);color:#fff;box-shadow:0 4px 12px var(--ring)}
+.nav-btn:hover:not(.active){background:var(--tiffany-light)}
+.content{background:transparent;padding:24px 18px 34px}
+.card{border-radius:22px;border:1px solid #D4EEED;box-shadow:0 8px 26px rgba(0,160,155,.10)}
+.section-header h2{font-size:24px;position:relative;padding-bottom:10px}
+.section-header h2::after{content:"";position:absolute;left:0;bottom:0;width:54px;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--tiffany),var(--gold))}
+.action-btn.primary,.pw-row button{background:linear-gradient(135deg,var(--tiffany),#00A8A3)}
+.action-btn{border-radius:16px}
+.fase-tab{border-radius:999px;padding:9px 20px}
+.fase-tab.on{background:linear-gradient(135deg,var(--tiffany),#00A8A3);box-shadow:0 4px 12px var(--ring)}
+.cal-block{border-radius:18px;border:1px solid #D4EEED}
+.cal-date-box{border-radius:14px;box-shadow:0 4px 10px rgba(0,160,155,.2)}
+.lock-screen{border-radius:22px;border:2px dashed var(--tiffany-mid);background:linear-gradient(180deg,#fff,#F2FEFD)}
+.welcome-card,.pdf-card,.tcc-btn{border-radius:22px}
+/* jornada */
+.jprog{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:linear-gradient(135deg,#F1FEFD,#fff);border:1px solid #CDEFED;border-radius:18px;padding:12px 16px;margin-bottom:16px}
+.jprog-txt{font-size:12.5px;font-weight:700;color:var(--tiffany-dark);flex:1;min-width:150px}
+.jprog-bar{flex:2;min-width:140px;height:10px;border-radius:10px;background:#D8F2F1;overflow:hidden}
+.jprog-bar i{display:block;height:100%;border-radius:10px;background:linear-gradient(90deg,var(--tiffany),var(--gold))}
+.jprog button{border:none;cursor:pointer;background:linear-gradient(135deg,var(--tiffany),#00A8A3);color:#fff;font-weight:800;font-size:12px;padding:8px 14px;border-radius:999px;box-shadow:0 4px 12px var(--ring)}
+.crono-wrap{position:relative;padding-left:32px;--prog:0%}
+.crono-wrap::before{content:"";position:absolute;left:12px;top:10px;bottom:10px;width:4px;border-radius:4px;background:linear-gradient(to bottom,var(--tiffany) var(--prog),#CFEFEE var(--prog))}
+.crono-wrap .crono-block{position:relative;background:#fff;border:1px solid #D4EEED;border-left:1px solid #D4EEED;border-radius:16px;padding:12px 16px;margin-bottom:10px;box-shadow:0 3px 12px rgba(0,160,155,.06)}
+.crono-wrap .crono-block::before{content:"";position:absolute;left:-27px;top:17px;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--tiffany);box-shadow:0 0 0 3px #fff}
+.crono-wrap .crono-block.t-esp::before{border-color:var(--gold)}
+.crono-wrap .crono-block.t-ferias::before{border-color:#B9C7C6}
+.crono-wrap .crono-block.past{opacity:.6;background:#FAFEFE}
+.crono-wrap .crono-block.past::before{background:var(--tiffany)}
+.crono-wrap .crono-block.t-esp.past::before{background:var(--gold)}
+.crono-wrap .crono-block.here{opacity:1;background:linear-gradient(135deg,#E4FBFA,#fff);border:2px solid var(--tiffany);box-shadow:0 10px 28px var(--ring)}
+.crono-wrap .crono-block.here::before{display:none}
+.here-badge{position:absolute;left:-39px;top:7px;width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--tiffany),#00A8A3);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px #fff,0 0 0 6px var(--ring);animation:ring 1.8s ease-out infinite}
+.here-badge svg{width:17px;height:17px;animation:hb 1.4s ease-in-out infinite}
+@keyframes ring{0%{box-shadow:0 0 0 4px #fff,0 0 0 4px var(--ring)}100%{box-shadow:0 0 0 4px #fff,0 0 0 16px rgba(0,208,202,0)}}
+.here-chip{background:linear-gradient(135deg,var(--tiffany),#00A8A3)}
+.crono-wrap .crono-block.t-mad{background:#F3FDFC}
+@media(max-width:520px){.topbar{padding:20px 16px}.topbar-brand h1{font-size:22px}.crono-wrap{padding-left:28px}.crono-wrap::before{left:9px}.crono-wrap .crono-block::before{left:-25px}.here-badge{left:-36px}}
+
+/* ===== NOVA CARA: splash de tinta, botões novos, Home em blocos ===== */
+h1,h2,.hero h2,.tile-title,.card-title,.section-header h2{font-family:'Poppins','Segoe UI',system-ui,sans-serif}
+.topbar{border-bottom:none;border-image:none;padding:30px 24px 46px;background:linear-gradient(120deg,#008E88 0%,#00BDB7 50%,#00D0CA 100%)}
+.topbar::before,.topbar::after{display:none}
+.splash{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.wave{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:26px;z-index:0;pointer-events:none}
+.nav{margin-top:-2px}
+/* hero da Home */
+.hero{position:relative;overflow:hidden;border-radius:26px;padding:26px 24px;margin-bottom:16px;color:#fff;background:linear-gradient(135deg,#00A8A3,#00D0CA 70%);box-shadow:0 14px 34px rgba(0,160,155,.28)}
+.hero svg{position:absolute;right:-30px;top:-30px;width:260px;height:260px;opacity:.9;pointer-events:none}
+.hero-hi{display:inline-block;background:rgba(255,255,255,.22);padding:4px 12px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.4px;margin-bottom:10px}
+.hero h2{font-size:23px;font-weight:800;line-height:1.2;max-width:80%;margin-bottom:8px;text-shadow:0 2px 10px rgba(0,0,0,.12)}
+.hero p{color:rgba(255,255,255,.92);font-size:13.5px;max-width:84%;margin:0}
+/* blocos de acesso rápido */
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
+.tile{position:relative;overflow:hidden;border-radius:22px;padding:18px 16px 16px;min-height:142px;text-decoration:none;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;gap:3px;cursor:pointer;border:none;text-align:left;font-family:inherit;transition:transform .18s,box-shadow .18s;box-shadow:0 10px 24px rgba(0,160,155,.2)}
+.tile:hover{transform:translateY(-3px) rotate(-.4deg);box-shadow:0 16px 32px rgba(0,160,155,.28)}
+.tile::before{content:"";position:absolute;right:-26px;top:-26px;width:110px;height:110px;border-radius:46% 54% 60% 40%/50% 40% 60% 50%;background:rgba(255,255,255,.2)}
+.tile-ico{position:absolute;left:14px;top:12px;font-size:26px;width:46px;height:46px;border-radius:16px;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(2px)}
+.tile-title{font-size:14.5px;font-weight:700;line-height:1.2;position:relative}
+.tile-sub{font-size:11.5px;opacity:.88;line-height:1.35;position:relative}
+.tile.t1{background:linear-gradient(135deg,#006F6A,#00A8A3)}
+.tile.t2{background:linear-gradient(135deg,#00C2BC,#6FE9E4)}
+.tile.t3{background:linear-gradient(135deg,#0A1628,#1F4E8C)}
+.tile.t4{background:linear-gradient(135deg,#C48A0C,#F2C14E)}
+/* botões novos */
+.action-btn{flex-direction:row;justify-content:flex-start;text-align:left;gap:12px;padding:12px 16px 12px 12px;border-radius:999px;position:relative;overflow:hidden;font-family:'Poppins','Segoe UI',sans-serif;font-weight:600;letter-spacing:.1px;transition:transform .18s,box-shadow .18s}
+.action-btn .btn-icon{flex-shrink:0;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;background:rgba(255,255,255,.28)}
+.action-btn.secondary .btn-icon{background:var(--tiffany-light)}
+.action-btn>span:last-of-type{flex:1;line-height:1.25}
+.action-btn::after{content:"›";font-size:24px;font-weight:700;line-height:1;opacity:.85;transition:transform .18s}
+.action-btn:hover::after{transform:translateX(4px)}
+.action-btn.primary::before{content:"";position:absolute;left:-30%;top:0;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:left .5s}
+.action-btn.primary:hover::before{left:110%}
+.action-btn.coming::after{display:none}
+.tcc-btn{border-radius:999px;font-family:'Poppins','Segoe UI',sans-serif}
+@media(max-width:520px){.hero h2{font-size:20px;max-width:90%}.hero p{max-width:92%}.topbar{padding:24px 16px 42px}}
+
+/* calendário com splash de tinta nas datas */
+.cal-date-box{position:relative;overflow:hidden;border-radius:46% 54% 50% 50%/56% 44% 56% 44%;padding:12px 16px;min-width:72px;isolation:isolate}
+.cal-date-box::before{content:"";position:absolute;right:-14px;top:-16px;width:54px;height:54px;border-radius:50% 50% 40% 60%/60% 40% 60% 40%;background:rgba(255,255,255,.26);z-index:-1}
+.cal-date-box::after{content:"";position:absolute;left:7px;bottom:7px;width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.4);box-shadow:15px 6px 0 -2px rgba(255,255,255,.28);z-index:-1}
+.cal-date-box .cal-day{font-family:'Poppins','Segoe UI',sans-serif;font-weight:800}
+.cal-block{border-radius:22px;position:relative;overflow:hidden}
+.cal-block::after{content:"";position:absolute;right:-22px;bottom:-26px;width:90px;height:90px;border-radius:46% 54% 60% 40%/50% 40% 60% 50%;background:rgba(0,208,202,.09);pointer-events:none}
+
+.tile.t1{background:linear-gradient(135deg,#2F62A8,#7FA8DF)}
+.tile.t2{background:linear-gradient(135deg,#FF9E70,#FFD0AE);color:#4A2410}
+.tile.t2 .tile-sub{opacity:.85}
+.tile.t2::before{background:rgba(255,255,255,.32)}
+.heart-ico{background:#fff!important;box-shadow:0 4px 12px rgba(255,140,80,.25)}
+.heart-ico svg{animation:hb 1.6s ease-in-out infinite}
+
+/* cores do app nos botões da Home */
+.tile.t1{background:linear-gradient(135deg,#0A1628,#1A3A6B);color:#fff}
+.tile.t2{background:linear-gradient(135deg,#E8643A,#F08A5D);color:#fff}
+.tile.t2 .tile-sub{opacity:.92}
+.tile.t1::before,.tile.t2::before{background:rgba(255,255,255,.14)}
+.tile .tile-ico,.tile .heart-ico{background:none!important;box-shadow:none!important;backdrop-filter:none;font-size:34px;width:auto;height:auto;left:16px;top:14px}
 </style>
 </head>
 <body>
 <div id="app">
   <div class="topbar">
+    <svg class="splash" viewBox="0 0 800 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <path d="M440 -20 C520 60 590 0 650 40 C720 85 790 30 850 70 L850 -20Z" fill="#6FF0EB" opacity=".6"/>
+      <path d="M600 -20 C650 10 700 40 760 20 C800 8 830 30 850 20 L850 -20Z" fill="#00958F" opacity=".45"/>
+      <path d="M-20 80 C40 40 100 120 170 96 C240 72 250 130 330 118 C380 110 360 170 300 180 L-20 180Z" fill="#007F7A" opacity=".5"/>
+      <circle cx="372" cy="34" r="9" fill="#E8643A" opacity=".95"/><circle cx="398" cy="62" r="5" fill="#fff" opacity=".85"/>
+      <circle cx="540" cy="104" r="12" fill="#0A1628" opacity=".85"/><circle cx="574" cy="84" r="5" fill="#E8643A" opacity=".95"/><circle cx="330" cy="112" r="7" fill="#B2EFED" opacity=".9"/>
+      <circle cx="710" cy="96" r="8" fill="#fff" opacity=".8"/><circle cx="742" cy="118" r="5" fill="#0A1628" opacity=".85"/>
+      <circle cx="118" cy="26" r="6" fill="#fff" opacity=".8"/><circle cx="250" cy="52" r="5" fill="#E8643A" opacity=".95"/>
+    </svg>
+    <svg class="wave" viewBox="0 0 800 30" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30 V16 C90 32 170 2 290 14 C410 26 490 4 610 12 C700 18 760 28 800 12 V30Z" fill="#fff"/></svg>
     <div class="topbar-left">
       <div class="logo-circle">VS</div>
       <div class="topbar-brand"><h1>SER-IA</h1><span>ÁREA DO ALUNO</span></div>
@@ -144,17 +272,18 @@ h3{font-size:12.5px;font-weight:800;color:var(--tiffany-dark);margin:16px 0 6px;
 
     <!-- HOME / MANUAL -->
     <div id="manual" class="section active">
-      <div class="section-header"><h2>Home</h2><p>Formação Comunicação com Propósito — Voz do Ser</p></div>
-      <div style="display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap">
-        <a href="https://manualdoaluno-escola.netlify.app/" target="_blank" rel="noopener noreferrer" class="mini-link-card" style="background:linear-gradient(135deg,#005F5A,#00A09B)">
-          <span class="mini-icon">📄</span>
-          <span class="mini-title">Manual do Aluno</span>
-          <span class="mini-sub">Acesse o documento oficial</span>
+      <div class="hero">
+        <svg viewBox="0 0 260 260" aria-hidden="true"><path d="M130 10 C190 0 250 50 250 120 C250 190 190 250 120 245 C60 240 10 190 15 125 C20 60 70 18 130 10Z" fill="#fff" opacity=".16"/><path d="M170 60 C210 55 245 90 235 135 C225 175 185 200 150 190 C115 180 105 130 125 95 C135 75 150 62 170 60Z" fill="#FFE9A6" opacity=".35"/><circle cx="60" cy="210" r="8" fill="#fff" opacity=".5"/></svg>
+        <span class="hero-hi">Olá! 👋</span>
+        <h2>Sua Área do Aluno</h2>
+        <p>Cronogramas, materiais e tudo da sua jornada na Formação Comunicação com Propósito, num só lugar.</p>
+      </div>
+      <div class="tiles">
+        <a href="https://manualdoaluno-escola.netlify.app/" target="_blank" rel="noopener noreferrer" class="tile t1">
+          <span class="tile-ico">📄</span><span class="tile-title">Manual do Aluno</span><span class="tile-sub">Acesse o documento oficial</span>
         </a>
-        <a href="https://lucurti.github.io/rededecuidadoVS/" target="_blank" rel="noopener noreferrer" class="mini-link-card" style="background:linear-gradient(135deg,#B2EFED,#E0FAFA);color:#1C2B2A">
-          <span class="mini-icon">⛓️</span>
-          <span class="mini-title">Rede de Cuidado</span>
-          <span class="mini-sub" style="opacity:.75">Conheça seus cuidadores e afilhados</span>
+        <a href="https://rededecuidado-escola.netlify.app/" target="_blank" rel="noopener noreferrer" class="tile t2">
+          <span class="tile-ico heart-ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path fill="#00D0CA" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span><span class="tile-title">Rede de Cuidado</span><span class="tile-sub">Conheça seus cuidadores e afilhados</span>
         </a>
       </div>
       <div class="card">
@@ -250,16 +379,12 @@ h3{font-size:12.5px;font-weight:800;color:var(--tiffany-dark);margin:16px 0 6px;
         <div class="card-title">📞 Fale com a Gente</div>
         <div class="contact-grid">
           <div class="contact-item">
-            <strong>Diretoria da Formação</strong>
-            <div class="contact-name">Carol</div>
+            <strong>Escola</strong>
             <a href="https://wa.me/5511978418289" target="_blank" rel="noopener noreferrer" class="contact-info" style="color:var(--tiffany-dark);font-weight:700;text-decoration:none">📱 (11) 97841-8289</a>
-            <div style="height:8px"></div>
-            <div class="contact-name">Coordenação — Karine</div>
-            <a href="https://wa.me/5511980608376" target="_blank" rel="noopener noreferrer" class="contact-info" style="color:var(--tiffany-dark);font-weight:700;text-decoration:none">📱 (11) 98060-8376</a>
+            <div class="contact-info">falecom@vozdoser.com.br</div>
           </div>
           <div class="contact-item">
             <strong>Financeiro</strong>
-            <div class="contact-name">Sabrina</div>
             <a href="https://wa.me/5511932202070" target="_blank" rel="noopener noreferrer" class="contact-info" style="color:var(--tiffany-dark);font-weight:700;text-decoration:none;display:block">📱 (11) 93220-2070</a>
             <div class="contact-info">financeiro@vozdoser.com.br</div>
           </div>
@@ -278,12 +403,12 @@ h3{font-size:12.5px;font-weight:800;color:var(--tiffany-dark);margin:16px 0 6px;
 
       <div class="cal-year">2026</div>
       <div class="cal-block">
-        <div class="cal-date-box" style="background:#5E35B1"><div class="cal-day">23</div><div class="cal-month">OUT</div></div>
-        <div class="cal-info"><div class="cal-event">Ser em Cena 2</div><span class="cal-type cal-show">23, 24 e 25 de outubro</span></div>
-      </div>
-      <div class="cal-block">
         <div class="cal-date-box"><div class="cal-day">28</div><div class="cal-month">NOV</div></div>
         <div class="cal-info"><div class="cal-event">Workshop Voz do Ser</div><span class="cal-type cal-ws">28 e 29 de novembro</span></div>
+      </div>
+      <div class="cal-block">
+        <div class="cal-date-box" style="background:#2E7D32"><div class="cal-day">16</div><div class="cal-month">DEZ</div></div>
+        <div class="cal-info"><div class="cal-event">Aulão</div><span class="cal-type cal-aula">16 de dezembro</span></div>
       </div>
       <div class="cal-block">
         <div class="cal-date-box" style="background:#B8860B"><div class="cal-day">21</div><div class="cal-month">DEZ</div></div>
@@ -307,9 +432,9 @@ h3{font-size:12.5px;font-weight:800;color:var(--tiffany-dark);margin:16px 0 6px;
         <div class="cal-date-box" style="background:#1565C0"><div class="cal-day">18</div><div class="cal-month">MAR/27</div></div>
         <div class="cal-info"><div class="cal-event">Chegada da Turma 20</div><span class="cal-type cal-turma">18 de março/27 (quinta-feira)</span></div>
       </div>
-      <div class="cal-block">
-        <div class="cal-date-box"><div class="cal-day">01</div><div class="cal-month">MAI/27</div></div>
-        <div class="cal-info"><div class="cal-event">Workshop Voz do Ser — 10 anos do Voz do Ser</div><span class="cal-type cal-ws">1 e 2 de maio/27</span></div>
+      <div class="cal-block cal-party">
+        <div class="cal-date-box" style="background:linear-gradient(135deg,#00D0CA,#B8860B)"><div class="cal-day">01</div><div class="cal-month">MAI/27</div></div>
+        <div class="cal-info"><div class="cal-event">🎉 Workshop Voz do Ser — 10 anos!</div><span class="cal-type cal-ws">1 e 2 de maio/27</span><div class="cal-note">Maio é o mês de aniversário do Voz do Ser: vamos comemorar 10 anos juntos 💙</div></div>
       </div>
       <div class="cal-block">
         <div class="cal-date-box"><div class="cal-day">26</div><div class="cal-month">JUN/27</div></div>
@@ -373,11 +498,11 @@ h3{font-size:12.5px;font-weight:800;color:var(--tiffany-dark);margin:16px 0 6px;
           </a>
         </div>
         <div class="fase-tabs">
-          <button class="fase-tab on" onclick="showCrono('f2t17','f2',this)">Turma 17</button>
-          <button class="fase-tab" onclick="showCrono('f2t18','f2',this)">Turma 18</button>
+          <button class="fase-tab on" onclick="showCrono('f2t18','f2',this)">Turma 18</button>
+          <button class="fase-tab" onclick="showCrono('f2t19','f2',this)">Turma 19</button>
         </div>
-        <div id="f2t17" class="crono-section on"><div class="card"><div class="card-title">Turma 17 — Fase 2 <span class="badge">Quarta-feira</span></div><div id="t17c"></div></div></div>
-        <div id="f2t18" class="crono-section"><div class="card"><div class="card-title">Turma 18 — Fase 2 <span class="badge">Quinta-feira</span></div><div id="t18c_f2"></div></div></div>
+        <div id="f2t18" class="crono-section on"><div class="card"><div class="card-title">Turma 18 — Fase 2 <span class="badge">Quinta-feira</span></div><div id="t18c_f2"></div></div></div>
+        <div id="f2t19" class="crono-section"><div class="card"><div class="card-title">Turma 19 — Fase 2 <span class="badge">Quarta-feira</span></div><div id="t19c_f2"></div></div></div>
       </div>
     </div>
 
@@ -454,6 +579,9 @@ h3{font-size:12.5px;font-weight:800;color:var(--tiffany-dark);margin:16px 0 6px;
           <a href="https://drive.google.com/file/d/1gP31RvPlDv8JhYgzumKO_VA_4MSkGrTD/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="action-btn primary">
             <span class="btn-icon">📖</span><span>Acesse sua apostila!</span>
           </a>
+          <a href="https://lucurti.github.io/TerapiadaComunicacao/" target="_blank" rel="noopener noreferrer" class="action-btn primary">
+            <span class="btn-icon">🧭</span><span>Caminho da Terapia da Comunicação</span>
+          </a>
           <a href="https://classroom.google.com/c/ODcwNjQwOTI1MDg4?cjc=paheptgj" target="_blank" rel="noopener noreferrer" class="action-btn secondary">
             <span class="btn-icon">🎬</span><span>Acesse as aulas gravadas</span>
           </a>
@@ -525,6 +653,9 @@ h3{font-size:12.5px;font-weight:800;color:var(--tiffany-dark);margin:16px 0 6px;
           <a href="https://drive.google.com/file/d/1gP31RvPlDv8JhYgzumKO_VA_4MSkGrTD/view" target="_blank" rel="noopener noreferrer" class="action-btn primary">
             <span class="btn-icon">📖</span><span>Acesse sua apostila!</span>
           </a>
+          <a href="https://lucurti.github.io/TerapiadaComunicacao/" target="_blank" rel="noopener noreferrer" class="action-btn primary">
+            <span class="btn-icon">🧭</span><span>Caminho da Terapia da Comunicação</span>
+          </a>
           <a href="https://classroom.google.com/w/ODcwNjQyODMyMTc4/tc/ODcxMjE4NTExMjg0" target="_blank" rel="noopener noreferrer" class="action-btn secondary">
             <span class="btn-icon">🎬</span><span>Acesse as aulas gravadas</span>
           </a>
@@ -587,6 +718,9 @@ h3{font-size:12.5px;font-weight:800;color:var(--tiffany-dark);margin:16px 0 6px;
         <div class="action-btns">
           <a href="https://drive.google.com/file/d/1gP31RvPlDv8JhYgzumKO_VA_4MSkGrTD/view" target="_blank" rel="noopener noreferrer" class="action-btn primary">
             <span class="btn-icon">📖</span><span>Acesse a apostila de TC</span>
+          </a>
+          <a href="https://lucurti.github.io/TerapiadaComunicacao/" target="_blank" rel="noopener noreferrer" class="action-btn primary">
+            <span class="btn-icon">🧭</span><span>Caminho da Terapia da Comunicação</span>
           </a>
         </div>
         <div class="action-btns">
@@ -656,6 +790,15 @@ const T17=[
   {d:"17/11",a:"Mudança para terça-feira<br>Chegada na aula de padrinhos",t:"esp"},
 ];
 const T18_F2=[
+  {d:"03/09",a:"Primeira aula Fase 2 (aferindo termos)",t:"esp"},
+  {d:"04/09–10/09",a:"Semana de madrinhagem",t:"mad"},
+  {d:"10/09",a:"Os substitutos de Deus – 1",t:""},
+  {d:"17/09",a:"Os substitutos de Deus – 2",t:""},
+  {d:"24/09",a:"Os substitutos de Deus – 3",t:""},
+  {d:"25/09–01/10",a:"Semana de madrinhagem",t:"mad"},
+  {d:"01/10",a:"O opressor da Paz (controle)",t:""},
+  {d:"08/10",a:"O desenvolvimento da confiança",t:""},
+  {d:"15/10",a:"Renunciando à insuficiência",t:""},
   {d:"16–22/10",a:"Semana de madrinhagem",t:"mad"},
   {d:"22/10",a:"Teoricamente não acontece nada",t:""},
   {d:"29/10",a:"O anticristo (rejeição)",t:""},
@@ -667,7 +810,7 @@ const T18_F2=[
   {d:"27/11–03/12",a:"Semana de madrinhagem",t:"mad"},
   {d:"03/12",a:"Abandonando um jeito de pensar (artista)",t:""},
   {d:"10/12",a:"Relacionamento",t:""},
-  {d:"17/12",a:"Aulão com todas as turmas",t:"esp"},
+  {d:"16/12",a:"Aulão com todas as turmas (quarta-feira)",t:"esp"},
   {d:"18/12–17/01/27",a:"Férias",t:"ferias"},
   {d:"21/01/27",a:"Parei, e agora?",t:""},
   {d:"28/01/27",a:"Aprendendo a cuidar do mundo",t:""},
@@ -682,6 +825,18 @@ const T18_F2=[
   {d:"09/03/27",a:"Mudança para terça-feira<br>Chegada na aula de padrinhos",t:"esp"},
 ];
 const T19=[
+  {d:"12/08",a:"Casamento (CCP 1)",t:"esp"},
+  {d:"19/08",a:"Comunicação com Propósito 2",t:""},
+  {d:"26/08",a:"Comunicação com Propósito 3",t:""},
+  {d:"27/08–02/09",a:"Semana de madrinhagem",t:"mad"},
+  {d:"02/09",a:"Contexto 1",t:""},
+  {d:"09/09",a:"Contexto 2",t:""},
+  {d:"16/09",a:"Contexto 3",t:""},
+  {d:"23/09",a:"O Observador da Mente",t:""},
+  {d:"24/09–30/09",a:"Semana de madrinhagem",t:"mad"},
+  {d:"30/09",a:"Mensageiro 1",t:""},
+  {d:"07/10",a:"Mensageiro 2",t:""},
+  {d:"14/10",a:"Mensageiro 3",t:""},
   {d:"15–21/10",a:"Semana de madrinhagem",t:"mad"},
   {d:"21/10",a:"Interlocutor 1",t:""},
   {d:"28/10",a:"Interlocutor 2",t:""},
@@ -693,7 +848,7 @@ const T19=[
   {d:"26/11–02/12",a:"Semana de madrinhagem",t:"mad"},
   {d:"02/12",a:"Usufruto 1",t:""},
   {d:"09/12",a:"Usufruto 2",t:""},
-  {d:"17/12",a:"Aulão (quinta-feira)",t:"esp"},
+  {d:"16/12",a:"Aulão com todas as turmas (quarta-feira)",t:"esp"},
   {d:"18/12–20/01/27",a:"Semana de madrinhagem",t:"mad"},
   {d:"20/01/27",a:"Usufruto 3 / Aula extra",t:""},
   {d:"27/01/27",a:"Dar e Receber 1 e 2",t:""},
@@ -702,6 +857,41 @@ const T19=[
   {d:"10/02/27",a:"Carnaval (não tem aula)",t:"ferias"},
   {d:"17/02/27",a:"Primeira aula Fase 2",t:"esp"},
 ];
+const T19_F2=[
+  {d:"17/02/27",a:"Primeira aula Fase 2 (aferindo termos)",t:"esp"},
+  {d:"18/02/27–24/02/27",a:"Semana de madrinhagem",t:"mad"},
+  {d:"24/02/27",a:"Os substitutos de Deus – 1",t:""},
+  {d:"03/03/27",a:"Os substitutos de Deus – 2",t:""},
+  {d:"10/03/27",a:"Os substitutos de Deus – 3",t:""},
+  {d:"11/03/27–17/03/27",a:"Semana de madrinhagem",t:"mad"},
+  {d:"17/03/27",a:"O opressor da Paz (controle)",t:""},
+  {d:"24/03/27",a:"O desenvolvimento da confiança",t:""},
+  {d:"31/03/27",a:"Renunciando à insuficiência",t:""},
+  {d:"01/04/27–07/04/27",a:"Semana de madrinhagem",t:"mad"},
+  {d:"07/04/27",a:"Teoricamente não acontece nada",t:""},
+  {d:"14/04/27",a:"O anticristo (rejeição)",t:""},
+  {d:"28/04/27",a:"O que eu preciso fazer?",t:""},
+  {d:"29/04/27–05/05/27",a:"Semana de madrinhagem",t:"mad"},
+  {d:"05/05/27",a:"Aprendendo a ouvir a intuição",t:""},
+  {d:"12/05/27",a:"Imaginação bloqueando a intuição",t:""},
+  {d:"19/05/27",a:"Intuição: o acesso à verdade",t:""},
+  {d:"20/05/27–26/05/27",a:"Semana de madrinhagem",t:"mad"},
+  {d:"26/05/27",a:"Abandonando um jeito de pensar (artista)",t:""},
+  {d:"02/06/27",a:"Relacionamento",t:""},
+  {d:"09/06/27",a:"Parei, e agora?",t:""},
+  {d:"10/06/27–16/06/27",a:"Semana de madrinhagem",t:"mad"},
+  {d:"16/06/27",a:"Aprendendo a cuidar do mundo",t:""},
+  {d:"23/06/27",a:"A saída",t:""},
+  {d:"30/06/27",a:"Daqui até a transcendência",t:""},
+  {d:"01/07/27–07/07/27",a:"Semana de madrinhagem",t:"mad"},
+  {d:"07/07/27",a:"Renovação de Votos — Fase 2",t:"esp"},
+  {d:"12/07/27–25/07/27",a:"Férias",t:"ferias"},
+  {d:"27/07/27",a:"Aulão com todas as turmas (terça-feira)",t:"esp"},
+  {d:"28/07/27",a:"Treinamento de Padrinhos 1",t:""},
+  {d:"04/08/27",a:"Treinamento de Padrinhos 2",t:""},
+  {d:"11/08/27",a:"Treinamento de Padrinhos 3",t:""},
+  {d:"24/08/27",a:"Chegada da Turma 19 na aula de padrinhos<br>Mudança de aula para terça-feira",t:"esp"},
+];
 function tagLabel(t){
   if(t==="mad")return`<span class="crono-tag tag-mad">👥 Madrinhagem</span>`;
   if(t==="jp")return`<span class="crono-tag tag-jp">📍 JP</span>`;
@@ -709,9 +899,45 @@ function tagLabel(t){
   if(t==="esp")return`<span class="crono-tag tag-esp">⭐ Especial</span>`;
   return"";
 }
-function renderCrono(data,el){if(!el)return;el.innerHTML=data.map(i=>`<div class="crono-block"><div class="crono-date">${i.d}${tagLabel(i.t)}</div><div class="crono-aula">${i.a}</div></div>`).join("");}
-renderCrono(T17,document.getElementById("t17c"));
+function parseRange(str){
+  const parts=String(str).split(/\s*[–-]\s*/);
+  const one=p=>{const m=p.trim().match(/^(\d{1,2})(?:\/(\d{1,2}))?(?:\/(\d{2}))?$/);return m?{d:+m[1],m:m[2]?+m[2]:null,y:m[3]?2000+ +m[3]:null}:null;};
+  const e=one(parts[parts.length-1]);if(!e||!e.m)return null;
+  const ey=e.y||2026;const end=new Date(ey,e.m-1,e.d);
+  if(parts.length===1)return{start:end,end:end,range:false};
+  const b=one(parts[0]);if(!b)return null;
+  let by=b.y||ey;let start=new Date(by,(b.m||e.m)-1,b.d);
+  if(!b.y&&start>end)start=new Date(by-1,(b.m||e.m)-1,b.d);
+  return{start,end,range:true};
+}
+function hereIndex(data){
+  const n=new Date();const today=new Date(n.getFullYear(),n.getMonth(),n.getDate());
+  for(let i=0;i<data.length;i++){
+    const r=parseRange(data[i].d);if(!r)continue;
+    const key=r.range?new Date(r.start.getFullYear(),r.start.getMonth(),r.start.getDate()+2):r.end;
+    if(key>=today)return i;
+  }
+  return -1;
+}
+const HEART='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+let _jid=0;
+function renderCrono(data,el){
+  if(!el)return;
+  const h=hereIndex(data);const id="here"+(++_jid);
+  const total=data.length;const done=h<0?total:h;
+  const pct=Math.round(done/total*100);
+  const items=data.map((i,k)=>{
+    const cls=(k===h?" here":(k<h||h<0?" past":""))+(i.t?" t-"+i.t:"");
+    const badge=k===h?`<span class="here-badge">${HEART}</span>`:"";
+    const chip=k===h?`<span class="here-chip">${HEART}Estamos aqui</span>`:"";
+    return `<div class="crono-block${cls}"${k===h?` id="${id}"`:""}>${badge}<div class="crono-date">${i.d}${tagLabel(i.t)}${chip}</div><div class="crono-aula">${i.a}</div></div>`;
+  }).join("");
+  const msg=h<0?"Jornada concluída! 🎉":`Você já percorreu ${done} de ${total} etapas`;
+  const btn=h<0?"":`<button type="button" onclick="document.getElementById('${id}').scrollIntoView({behavior:'smooth',block:'center'})">💙 Ir para onde estamos</button>`;
+  el.innerHTML=`<div class="jprog"><div class="jprog-txt">${msg}</div><div class="jprog-bar"><i style="width:${pct}%"></i></div>${btn}</div><div class="crono-wrap" style="--prog:${pct}%">${items}</div>`;
+}
 renderCrono(T18_F2,document.getElementById("t18c_f2"));
+renderCrono(T19_F2,document.getElementById("t19c_f2"));
 renderCrono(T19,document.getElementById("t19c"));
 renderCrono(T19,document.getElementById("t19c3"));
 renderCrono(T17,document.getElementById("t17c3"));
@@ -725,17 +951,22 @@ function showTab(id){
   document.querySelectorAll(".nav-btn")[NAV_MAP[id]].classList.add("active");
 }
 function showCrono(id,group,btn){
-  const groups={f2:["f2t17","f2t18"],f3:["f3t19","f3t17","f3t18"]};
+  const groups={f2:["f2t18","f2t19"],f3:["f3t19","f3t17","f3t18"]};
   (groups[group]||[]).forEach(s=>{const el=document.getElementById(s);if(el)el.classList.remove("on");});
   const el=document.getElementById(id);if(el)el.classList.add("on");
   btn.closest(".fase-tabs").querySelectorAll(".fase-tab").forEach(b=>b.classList.remove("on"));
   btn.classList.add("on");
 }
-const PASSWORDS={2:"fase2VS",3:"soupadrinho",4:"JP!vs",5:"fase5-qt",6:"comunidade"};
+const PASSWORDS={2:"estounafase2",3:"jásoupadrinho",4:"paredão!",5:"quaseterapeuta"};
+const norm=t=>t.toLowerCase().replace(/\s+/g,"").normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+function okPw(n,pw){
+  if(n===6)return pw.trim()==="comUnidade"||pw.trim()==="Comunidade";
+  return norm(pw)===norm(PASSWORDS[n]);
+}
 function check(n){
   const pw=document.getElementById("pw"+n).value;
   const err=document.getElementById("err"+n);
-  if(pw===PASSWORDS[n]){
+  if(okPw(n,pw)){
     document.getElementById("lock"+n).style.display="none";
     document.getElementById("content"+n).classList.add("unlocked");
     err.textContent="";
