@@ -234,6 +234,16 @@ h1,h2,.hero h2,.tile-title,.card-title,.section-header h2{font-family:'Poppins',
 .tile.t2 .tile-sub{opacity:.92}
 .tile.t1::before,.tile.t2::before{background:rgba(255,255,255,.14)}
 .tile .tile-ico,.tile .heart-ico{background:none!important;box-shadow:none!important;backdrop-filter:none;font-size:34px;width:auto;height:auto;left:16px;top:14px}
+.prof-quote{margin:16px 0 4px;padding:14px 16px;border-radius:14px;text-align:center;font-weight:800;font-size:15px;color:#0A1628;background:linear-gradient(135deg,#7FF0EC,#00D0CA);box-shadow:0 4px 14px rgba(0,208,202,.35)}
+.prof-list{list-style:none;padding:0;margin:8px 0 6px;display:flex;flex-direction:column;gap:8px}
+.prof-list li{display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,.1);border-radius:12px;padding:10px 12px;color:rgba(255,255,255,.92);font-size:13.5px;line-height:1.5}
+.prof-list li>span{font-size:18px;line-height:1.3}
+.prof-list strong{color:#fff}
+.action-btn.prof-app,.action-btn.prof-trilha{flex:1 1 100%;min-width:100%}
+.action-btn.prof-trilha{background:#fff;color:#1A3A6B;border:2px solid #1A3A6B;box-shadow:0 2px 8px rgba(26,58,107,.12)}
+.action-btn.prof-trilha .btn-icon{background:#EEF3FB}
+.action-btn.prof-trilha:hover{background:#EEF3FB;transform:translateY(-1px)}
+.action-btn.prof-app{padding:20px 18px}.prof-app-txt{font-size:19px;font-weight:800;letter-spacing:.8px}
 </style>
 </head>
 <body>
@@ -267,6 +277,7 @@ h1,h2,.hero h2,.tile-title,.card-title,.section-header h2{font-family:'Poppins',
     <button class="nav-btn" onclick="showTab('fase4')">💫 Fase 4</button>
     <button class="nav-btn" onclick="showTab('fase5')">🎓 Fase 5</button>
     <button class="nav-btn" onclick="showTab('tf')">💎 Terapeuta Formado</button>
+    <button class="nav-btn" onclick="showTab('prof')">👩‍🏫 Área do Professor</button>
   </div>
   <div class="content">
 
@@ -384,6 +395,16 @@ h1,h2,.hero h2,.tile-title,.card-title,.section-header h2{font-family:'Poppins',
             <div class="contact-info">falecom@vozdoser.com.br</div>
           </div>
           <div class="contact-item">
+            <strong>Clínica</strong>
+            <a href="https://wa.me/5511976777930" target="_blank" rel="noopener noreferrer" class="contact-info" style="color:var(--tiffany-dark);font-weight:700;text-decoration:none;display:block">📱 (11) 97677-7930</a>
+            <div class="contact-info">falecom@vozdoser.com.br</div>
+          </div>
+          <div class="contact-item">
+            <strong>Corporativo</strong>
+            <a href="https://wa.me/5511987792244" target="_blank" rel="noopener noreferrer" class="contact-info" style="color:var(--tiffany-dark);font-weight:700;text-decoration:none;display:block">📱 (11) 98779-2244</a>
+            <div class="contact-info">falecom@vozdoser.com.br</div>
+          </div>
+          <div class="contact-item">
             <strong>Financeiro</strong>
             <a href="https://wa.me/5511932202070" target="_blank" rel="noopener noreferrer" class="contact-info" style="color:var(--tiffany-dark);font-weight:700;text-decoration:none;display:block">📱 (11) 93220-2070</a>
             <div class="contact-info">financeiro@vozdoser.com.br</div>
@@ -402,65 +423,65 @@ h1,h2,.hero h2,.tile-title,.card-title,.section-header h2{font-family:'Poppins',
       <div class="section-header"><h2>Calendário da Escola</h2><p>Eventos e datas importantes — 2026 e 2027</p></div>
 
       <div class="cal-year">2026</div>
-      <div class="cal-block">
+      <div class="cal-block" data-end="2026-11-29">
         <div class="cal-date-box"><div class="cal-day">28</div><div class="cal-month">NOV</div></div>
         <div class="cal-info"><div class="cal-event">Workshop Voz do Ser</div><span class="cal-type cal-ws">28 e 29 de novembro</span></div>
       </div>
-      <div class="cal-block">
+      <div class="cal-block" data-end="2026-12-16">
         <div class="cal-date-box" style="background:#2E7D32"><div class="cal-day">16</div><div class="cal-month">DEZ</div></div>
         <div class="cal-info"><div class="cal-event">Aulão</div><span class="cal-type cal-aula">16 de dezembro</span></div>
       </div>
-      <div class="cal-block">
+      <div class="cal-block" data-end="2027-01-17">
         <div class="cal-date-box" style="background:#B8860B"><div class="cal-day">21</div><div class="cal-month">DEZ</div></div>
         <div class="cal-info"><div class="cal-event">Férias Escolares</div><span class="cal-type cal-ferias">21 dez → 17 jan/27</span></div>
       </div>
 
       <div class="cal-year" style="margin-top:18px">2027</div>
-      <div class="cal-block">
+      <div class="cal-block" data-end="2027-01-18">
         <div class="cal-date-box" style="background:#2E7D32"><div class="cal-day">18</div><div class="cal-month">JAN/27</div></div>
         <div class="cal-info"><div class="cal-event">Volta às Aulas</div><span class="cal-type cal-aula">18 de janeiro/27 (segunda-feira)</span></div>
       </div>
-      <div class="cal-block">
+      <div class="cal-block" data-end="2027-01-24">
         <div class="cal-date-box"><div class="cal-day">23</div><div class="cal-month">JAN/27</div></div>
         <div class="cal-info"><div class="cal-event">Workshop Voz do Ser</div><span class="cal-type cal-ws">23 e 24 de janeiro/27</span></div>
       </div>
-      <div class="cal-block">
+      <div class="cal-block" data-end="2027-03-07">
         <div class="cal-date-box"><div class="cal-day">06</div><div class="cal-month">MAR/27</div></div>
         <div class="cal-info"><div class="cal-event">Workshop Voz do Ser</div><span class="cal-type cal-ws">6 e 7 de março/27</span></div>
       </div>
-      <div class="cal-block">
+      <div class="cal-block" data-end="2027-03-18">
         <div class="cal-date-box" style="background:#1565C0"><div class="cal-day">18</div><div class="cal-month">MAR/27</div></div>
         <div class="cal-info"><div class="cal-event">Chegada da Turma 20</div><span class="cal-type cal-turma">18 de março/27 (quinta-feira)</span></div>
       </div>
-      <div class="cal-block cal-party">
+      <div class="cal-block cal-party" data-end="2027-05-02">
         <div class="cal-date-box" style="background:linear-gradient(135deg,#00D0CA,#B8860B)"><div class="cal-day">01</div><div class="cal-month">MAI/27</div></div>
         <div class="cal-info"><div class="cal-event">🎉 Workshop Voz do Ser — 10 anos!</div><span class="cal-type cal-ws">1 e 2 de maio/27</span><div class="cal-note">Maio é o mês de aniversário do Voz do Ser: vamos comemorar 10 anos juntos 💙</div></div>
       </div>
-      <div class="cal-block">
+      <div class="cal-block" data-end="2027-06-27">
         <div class="cal-date-box"><div class="cal-day">26</div><div class="cal-month">JUN/27</div></div>
         <div class="cal-info"><div class="cal-event">Workshop Voz do Ser</div><span class="cal-type cal-ws">26 e 27 de junho/27</span></div>
       </div>
-      <div class="cal-block">
+      <div class="cal-block" data-end="2027-07-25">
         <div class="cal-date-box" style="background:#B8860B"><div class="cal-day">12</div><div class="cal-month">JUL/27</div></div>
         <div class="cal-info"><div class="cal-event">Férias Escolares</div><span class="cal-type cal-ferias">12 jul → 25 jul/27</span></div>
       </div>
-      <div class="cal-block">
+      <div class="cal-block" data-end="2027-07-27">
         <div class="cal-date-box" style="background:#2E7D32"><div class="cal-day">27</div><div class="cal-month">JUL/27</div></div>
         <div class="cal-info"><div class="cal-event">Aulão</div><span class="cal-type cal-aula">27 de julho/27 (terça-feira)</span></div>
       </div>
-      <div class="cal-block">
+      <div class="cal-block" data-end="2027-08-15">
         <div class="cal-date-box"><div class="cal-day">14</div><div class="cal-month">AGO/27</div></div>
         <div class="cal-info"><div class="cal-event">Workshop Voz do Ser</div><span class="cal-type cal-ws">14 e 15 de agosto/27</span></div>
       </div>
-      <div class="cal-block">
+      <div class="cal-block" data-end="2027-09-01">
         <div class="cal-date-box" style="background:#1565C0"><div class="cal-day">01</div><div class="cal-month">SET/27</div></div>
         <div class="cal-info"><div class="cal-event">Chegada da Turma 21</div><span class="cal-type cal-turma">1 de setembro/27 (quarta-feira)</span></div>
       </div>
-      <div class="cal-block">
+      <div class="cal-block" data-end="2027-10-03">
         <div class="cal-date-box"><div class="cal-day">02</div><div class="cal-month">OUT/27</div></div>
         <div class="cal-info"><div class="cal-event">Workshop Voz do Ser</div><span class="cal-type cal-ws">2 e 3 de outubro/27</span></div>
       </div>
-      <div class="cal-block">
+      <div class="cal-block" data-end="2027-11-28">
         <div class="cal-date-box"><div class="cal-day">27</div><div class="cal-month">NOV/27</div></div>
         <div class="cal-info"><div class="cal-event">Workshop Voz do Ser</div><span class="cal-type cal-ws">27 e 28 de novembro/27</span></div>
       </div>
@@ -776,6 +797,40 @@ h1,h2,.hero h2,.tile-title,.card-title,.section-header h2{font-family:'Poppins',
       </div>
     </div>
 
+    <div id="prof" class="section">
+      <div class="section-header"><h2>Área do Professor</h2></div>
+      <div class="lock-screen" id="lock7">
+        <div class="lock-icon">🔐</div>
+        <h3>Área restrita — Professores</h3>
+        <p>Digite a senha para acessar a Área do Professor.</p>
+        <div class="pw-row"><input type="password" id="pw7" placeholder="Senha" onkeydown="if(event.key==='Enter')check(7)"/><button onclick="check(7)">Entrar</button></div>
+        <div class="pw-error" id="err7"></div>
+      </div>
+      <div class="locked-content" id="content7">
+        <div class="welcome-card navy">
+          <span class="welcome-emoji">👩‍🏫</span>
+          <h3>Olá, professores!</h3>
+          <p>Nós somos muito gratos por cada um de vocês. Obrigada por formarem terapeutas da comunicação. O cuidado, a dedicação e a verdade que vocês colocam em cada aula chegam nos alunos, e vocês convidam Deus para o mundo.</p>
+          <p style="margin-top:14px"><strong>Para caminharmos juntos, não se esqueça:</strong></p>
+          <ul class="prof-list">
+            <li><span>📝</span><div><strong>Evoluir a última aula</strong> aqui no app, para o registro ficar sempre atualizado.</div></li>
+            <li><span>📣</span><div><strong>Ler os news da coordenação</strong> toda vez que entrar, para ficar por dentro das novidades.</div></li>
+            <li><span>🚨</span><div><strong>Conferir os alunos em alerta</strong>, para chegar na aula sabendo como cada um está.</div></li>
+            <li><span>💙</span><div><strong>Usufruir do nosso relacionamento</strong>, para estarmos sempre atualizados e entregando o mesmo propósito.</div></li>
+          </ul>
+          <p>Seguimos juntos, cuidando dessa corrente. Gratidão! 💙</p>
+        </div>
+        <div class="action-btns">
+          <a href="https://claude.ai/public/artifacts/9aea8bfc-4641-4a8f-9afe-d14ce7dc9670" target="_blank" rel="noopener noreferrer" class="action-btn primary prof-app">
+            <span class="btn-icon">📲</span><span class="prof-app-txt">APP DO PROFESSOR</span>
+          </a>
+          <a href="https://claude.ai/artifact/8wzy9BmEe4NDvqM4V8f4hk" target="_blank" rel="noopener noreferrer" class="action-btn prof-trilha">
+            <span class="btn-icon">🧭</span><span>Trilha da Formação Comunicação com Propósito</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -943,7 +998,18 @@ renderCrono(T19,document.getElementById("t19c3"));
 renderCrono(T17,document.getElementById("t17c3"));
 renderCrono(T18_F2,document.getElementById("t18c3"));
 
-const NAV_MAP={manual:0,cal:1,fase1:2,fase2:3,fase3:4,fase4:5,fase5:6,tf:7};
+
+// Calendário: esconde eventos que já passaram (só no calendário da escola)
+(function(){
+  const d=new Date();const today=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  document.querySelectorAll("#cal .cal-block[data-end]").forEach(b=>{if(b.dataset.end<today)b.style.display="none";});
+  document.querySelectorAll("#cal .cal-year").forEach(y=>{
+    let n=y.nextElementSibling,vis=false;
+    while(n&&!n.classList.contains("cal-year")){if(n.classList.contains("cal-block")&&n.style.display!=="none")vis=true;n=n.nextElementSibling;}
+    if(!vis)y.style.display="none";
+  });
+})();
+const NAV_MAP={manual:0,cal:1,fase1:2,fase2:3,fase3:4,fase4:5,fase5:6,tf:7,prof:8};
 function showTab(id){
   document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
   document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
@@ -957,7 +1023,7 @@ function showCrono(id,group,btn){
   btn.closest(".fase-tabs").querySelectorAll(".fase-tab").forEach(b=>b.classList.remove("on"));
   btn.classList.add("on");
 }
-const PASSWORDS={2:"estounafase2",3:"jásoupadrinho",4:"paredão!",5:"quaseterapeuta"};
+const PASSWORDS={2:"estounafase2",3:"jásoupadrinho",4:"paredão!",5:"quaseterapeuta",7:"souprofdedeus"};
 const norm=t=>t.toLowerCase().replace(/\s+/g,"").normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 function okPw(n,pw){
   if(n===6)return pw.trim()==="comUnidade"||pw.trim()==="Comunidade";
