@@ -503,7 +503,12 @@ h1,h2,.hero h2,.tile-title,.card-title,.section-header h2{font-family:'Poppins',
           <span class="btn-icon">📖</span><span>Acesse sua apostila!</span>
         </a>
       </div>
-      <div class="card"><div class="card-title">Turma 19 — Fase 1 <span class="badge">Quarta-feira</span></div><div id="t19c"></div></div>
+      <div class="fase-tabs">
+        <button class="fase-tab on" onclick="showCrono('f1t19','f1',this)">Turma 19</button>
+        <button class="fase-tab" onclick="showCrono('f1t20','f1',this)">Turma 20</button>
+      </div>
+      <div id="f1t19" class="crono-section on"><div class="card"><div class="card-title">Turma 19 — Fase 1 <span class="badge">Quarta-feira</span></div><div id="t19c"></div></div></div>
+      <div id="f1t20" class="crono-section"><div class="card"><div class="card-title">Turma 20 — Fase 1 <span class="badge">Quinta-feira</span></div><div id="t20c"></div></div></div>
     </div>
 
     <!-- FASE 2 -->
@@ -883,6 +888,39 @@ const T18_F2=[
   {d:"04/03/27",a:"Treinamento de Padrinhos 2",t:""},
   {d:"09/03/27",a:"Mudança para terça-feira<br>Chegada na aula de padrinhos",t:"esp"},
 ];
+const T20=[
+  {d:"18/03/27",a:"Casamento (CCP 1)",t:"esp"},
+  {d:"25/03/27",a:"Comunicação com Propósito 2",t:""},
+  {d:"01/04/27",a:"Comunicação com Propósito 3",t:""},
+  {d:"02/04–08/04/27",a:"Semana de madrinhagem",t:"mad"},
+  {d:"08/04/27",a:"Contexto 1",t:""},
+  {d:"15/04/27",a:"Contexto 2",t:""},
+  {d:"22/04/27",a:"Contexto 3",t:""},
+  {d:"29/04/27",a:"O Observador da Mente",t:""},
+  {d:"30/04–06/05/27",a:"Semana de madrinhagem",t:"mad"},
+  {d:"06/05/27",a:"Mensageiro 1",t:""},
+  {d:"13/05/27",a:"Mensageiro 2",t:""},
+  {d:"20/05/27",a:"Mensageiro 3",t:""},
+  {d:"21/05–03/06/27",a:"Semana de madrinhagem",t:"mad"},
+  {d:"27/05/27",a:"Corpus Christi (não tem aula)",t:"ferias"},
+  {d:"03/06/27",a:"Interlocutor 1",t:""},
+  {d:"10/06/27",a:"Interlocutor 2",t:""},
+  {d:"17/06/27",a:"Interlocutor 3",t:""},
+  {d:"18/06–24/06/27",a:"Semana de madrinhagem",t:"mad"},
+  {d:"24/06/27",a:"Mensagem 1",t:""},
+  {d:"01/07/27",a:"Mensagem 2",t:""},
+  {d:"08/07/27",a:"Mensagem 3",t:""},
+  {d:"09/07–29/07/27",a:"Semana de madrinhagem",t:"mad"},
+  {d:"12/07–25/07/27",a:"Férias",t:"ferias"},
+  {d:"29/07/27",a:"Usufruto 1",t:""},
+  {d:"05/08/27",a:"Usufruto 2",t:""},
+  {d:"12/08/27",a:"Usufruto 3 – Revisão",t:""},
+  {d:"13/08–19/08/27",a:"Semana de madrinhagem",t:"mad"},
+  {d:"19/08/27",a:"Dar e Receber",t:""},
+  {d:"20/08–26/08/27",a:"Semana de madrinhagem",t:"mad"},
+  {d:"26/08/27",a:"Renovação de votos Fase 1 Turma 20",t:"esp"},
+  {d:"02/09/27",a:"Primeira aula da Fase 2",t:"esp"},
+];
 const T19=[
   {d:"12/08",a:"Casamento (CCP 1)",t:"esp"},
   {d:"19/08",a:"Comunicação com Propósito 2",t:""},
@@ -998,6 +1036,7 @@ function renderCrono(data,el){
 renderCrono(T18_F2,document.getElementById("t18c_f2"));
 renderCrono(T19_F2,document.getElementById("t19c_f2"));
 renderCrono(T19,document.getElementById("t19c"));
+renderCrono(T20,document.getElementById("t20c"));
 renderCrono(T19,document.getElementById("t19c3"));
 renderCrono(T17,document.getElementById("t17c3"));
 renderCrono(T18_F2,document.getElementById("t18c3"));
@@ -1021,7 +1060,7 @@ function showTab(id){
   document.querySelectorAll(".nav-btn")[NAV_MAP[id]].classList.add("active");
 }
 function showCrono(id,group,btn){
-  const groups={f2:["f2t18","f2t19"],f3:["f3t19","f3t17","f3t18"]};
+  const groups={f1:["f1t19","f1t20"],f2:["f2t18","f2t19"],f3:["f3t19","f3t17","f3t18"]};
   (groups[group]||[]).forEach(s=>{const el=document.getElementById(s);if(el)el.classList.remove("on");});
   const el=document.getElementById(id);if(el)el.classList.add("on");
   btn.closest(".fase-tabs").querySelectorAll(".fase-tab").forEach(b=>b.classList.remove("on"));
