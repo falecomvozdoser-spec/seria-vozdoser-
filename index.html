@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -244,6 +245,9 @@ h1,h2,.hero h2,.tile-title,.card-title,.section-header h2{font-family:'Poppins',
 .action-btn.prof-trilha .btn-icon{background:#EEF3FB}
 .action-btn.prof-trilha:hover{background:#EEF3FB;transform:translateY(-1px)}
 .action-btn.prof-app{padding:20px 18px}.prof-app-txt{font-size:19px;font-weight:800;letter-spacing:.8px}
+.action-btn.sala-btn{flex:1 1 100%;min-width:100%;padding:18px 18px 18px 14px}
+.sala-txt{font-size:17px;font-weight:800;letter-spacing:.5px;line-height:1.2}
+.sala-txt small{display:block;font-size:12px;font-weight:600;letter-spacing:0;opacity:.92;margin-top:3px}
 </style>
 </head>
 <body>
@@ -555,11 +559,8 @@ h1,h2,.hero h2,.tile-title,.card-title,.section-header h2{font-family:'Poppins',
           <p>Aproveite cada encontro, cada madrinhagem, cada afilhado. Eles são o seu maior acelerador e o nosso relacionamento é sempre suficiente. 💚</p>
         </div>
         <div class="action-btns">
-          <a href="https://classroom.google.com/c/ODcwNjQyNDQwNzky?cjc=633n62dg" target="_blank" rel="noopener noreferrer" class="action-btn primary">
-            <span class="btn-icon">📖</span><span>Acesse sua apostila!</span>
-          </a>
-          <a href="https://classroom.google.com/w/ODcwNjQyNDQwNzky/tc/ODcwNjg1Njk5MTIz" target="_blank" rel="noopener noreferrer" class="action-btn secondary">
-            <span class="btn-icon">🎬</span><span>Acesse as aulas gravadas</span>
+          <a href="https://classroom.google.com/c/ODcwNjQyNDQwNzky?cjc=633n62dg" target="_blank" rel="noopener noreferrer" class="action-btn primary sala-btn">
+            <span class="btn-icon">🏫</span><span class="sala-txt">ACESSE SUA SALA DE AULA<small>(apostila e aulas gravadas)</small></span>
           </a>
         </div>
         <div class="pdf-card">
@@ -610,7 +611,7 @@ h1,h2,.hero h2,.tile-title,.card-title,.section-header h2{font-family:'Poppins',
             <span class="btn-icon">📖</span><span>Acesse sua apostila!</span>
           </a>
           <a href="https://lucurti.github.io/TerapiadaComunicacao/" target="_blank" rel="noopener noreferrer" class="action-btn primary">
-            <span class="btn-icon">🧭</span><span>Caminho da Terapia da Comunicação</span>
+            <span class="btn-icon">🧭</span><span>Trilha da Terapia da Comunicação</span>
           </a>
           <a href="https://classroom.google.com/c/ODcwNjQwOTI1MDg4?cjc=paheptgj" target="_blank" rel="noopener noreferrer" class="action-btn secondary">
             <span class="btn-icon">🎬</span><span>Acesse as aulas gravadas</span>
@@ -684,9 +685,9 @@ h1,h2,.hero h2,.tile-title,.card-title,.section-header h2{font-family:'Poppins',
             <span class="btn-icon">📖</span><span>Acesse sua apostila!</span>
           </a>
           <a href="https://lucurti.github.io/TerapiadaComunicacao/" target="_blank" rel="noopener noreferrer" class="action-btn primary">
-            <span class="btn-icon">🧭</span><span>Caminho da Terapia da Comunicação</span>
+            <span class="btn-icon">🧭</span><span>Trilha da Terapia da Comunicação</span>
           </a>
-          <a href="https://classroom.google.com/w/ODcwNjQyODMyMTc4/tc/ODcxMjE4NTExMjg0" target="_blank" rel="noopener noreferrer" class="action-btn secondary">
+          <a href="https://classroom.google.com/c/ODcwNjQyODMyMTc4" target="_blank" rel="noopener noreferrer" class="action-btn secondary">
             <span class="btn-icon">🎬</span><span>Acesse as aulas gravadas</span>
           </a>
         </div>
@@ -750,7 +751,7 @@ h1,h2,.hero h2,.tile-title,.card-title,.section-header h2{font-family:'Poppins',
             <span class="btn-icon">📖</span><span>Acesse a apostila de TC</span>
           </a>
           <a href="https://lucurti.github.io/TerapiadaComunicacao/" target="_blank" rel="noopener noreferrer" class="action-btn primary">
-            <span class="btn-icon">🧭</span><span>Caminho da Terapia da Comunicação</span>
+            <span class="btn-icon">🧭</span><span>Trilha da Terapia da Comunicação</span>
           </a>
         </div>
         <div class="action-btns">
@@ -1079,11 +1080,21 @@ function check(n){
     document.getElementById("lock"+n).style.display="none";
     document.getElementById("content"+n).classList.add("unlocked");
     err.textContent="";
+    try{localStorage.setItem("seria_pw"+n,pw);}catch(e){}
   }else{
     err.textContent="Senha incorreta. Tente novamente.";
     document.getElementById("pw"+n).value="";
   }
 }
+// Lembrar o acesso neste aparelho: se a senha salva ainda é válida, já abre a área
+[2,3,4,5,6,7].forEach(n=>{
+  try{
+    const saved=localStorage.getItem("seria_pw"+n);
+    const lock=document.getElementById("lock"+n),content=document.getElementById("content"+n);
+    if(saved&&lock&&content&&okPw(n,saved)){lock.style.display="none";content.classList.add("unlocked");}
+    else if(saved){localStorage.removeItem("seria_pw"+n);}
+  }catch(e){}
+});
 </script>
 </body>
 </html>
